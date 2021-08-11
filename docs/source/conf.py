@@ -17,9 +17,12 @@
 
 # -- Project information -----------------------------------------------------
 
-project = "NHSX Data Engineering"
-copyright = "2020, NHSX; All content is available under the MIT Licence except where otherwise stated."
-author = "NHSX"
+project = u'NHSX Data Engineering'
+version = '0.0.1'
+release = '0.0.1'
+copyright = '© MIT Licence, NHSX 2021'
+author = 'Craig R Shenton, Mattia Ficarelli'
+language = 'en'
 
 
 # -- General configuration ---------------------------------------------------
@@ -31,6 +34,9 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx_reredirects",
     "bokeh.sphinxext.bokeh_plot",
+    'sphinx.ext.autodoc',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.viewcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -40,7 +46,6 @@ templates_path = ["_templates"]
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
-
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -59,15 +64,12 @@ html_favicon = "_static/favicon.png"
 html_logo = "_static/logo-wordmark-light.svg"
 
 html_theme_options = {
-    "style_external_links": True,
+    "style_external_links": False,
     "style_nav_header_background": "#2980B9",
     "navigation_depth": -1,
     'logo_only': False,
-    'vcs_pageview_mode': 'Edit',
 }
 
 html_css_files = [
     "css/theme_overrides.css",  # override wide tables in RTD theme
 ]
-
-redirects = {"faq": "resources.html"}
