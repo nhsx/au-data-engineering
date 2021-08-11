@@ -1,7 +1,7 @@
 name: Build and Deploy Docs
 
 on:
-  [push]:
+  push:
     branches:
       - main
     paths:
