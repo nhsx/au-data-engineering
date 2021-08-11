@@ -10,7 +10,7 @@
 
 .. toctree::
    :maxdepth: 1
-   :hidden:
+   :caption: Meta
 
    changelog
 
