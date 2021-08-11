@@ -60,12 +60,13 @@ html_logo = "_static/logo.svg"
 
 html_theme_options = {
     "style_external_links": True,
-    "style_nav_header_background": "#003087",
-    "navigation_depth": 1,
+    "style_nav_header_background": "#2980B9",
+    "navigation_depth": -1,
+    'logo_only': True,
+    'vcs_pageview_mode': 'Edit',
 }
 
 html_css_files = [
-    "css/nhsx.css",
     "css/theme_overrides.css",  # override wide tables in RTD theme
 ]
 
