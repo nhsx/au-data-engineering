@@ -1,19 +1,32 @@
-NHSX Data Enginnering
-=======================
-
-test
-
-.. Table of contents below, put all front page text above this
+.. include:: ../README.rst
 
 .. toctree::
-   :hidden:
-   :caption: Technical documentation
+   :caption: Theme Documentation
+   :maxdepth: 2
 
-   faq
+   installing
+   configuring
+   contributing
 
 .. toctree::
+   :maxdepth: 1
    :hidden:
-   :caption: Other Information
 
-   stats
+   changelog
 
+.. toctree::
+    :maxdepth: 2
+    :numbered:
+    :caption: Demo Documentation
+
+    demo/structure
+    demo/demo
+    demo/lists_tables
+    demo/api
+
+.. toctree::
+    :maxdepth: 3
+    :numbered:
+    :caption: Long caption
+
+    demo/long
