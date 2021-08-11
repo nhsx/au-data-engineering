@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "NHSX Data Engineering"
-copyright = "2020, NHSX; All content is available under the Open Government Licence v3.0, except where otherwise stated."
+copyright = "2020, NHSX; All content is available under the MIT Licence except where otherwise stated."
 author = "NHSX"
 
 
@@ -56,13 +56,13 @@ html_static_path = ["_static"]
 
 html_favicon = "_static/favicon.png"
 
-html_logo = "_static/logo.svg"
+html_logo = "_static/logo-wordmark-light.svg"
 
 html_theme_options = {
     "style_external_links": True,
     "style_nav_header_background": "#2980B9",
     "navigation_depth": -1,
-    'logo_only': True,
+    'logo_only': False,
     'vcs_pageview_mode': 'Edit',
 }
 
