@@ -2,5 +2,6 @@
 
 .. toctree::
 
+   README.rst
    installation.rst
    changelog.rst
