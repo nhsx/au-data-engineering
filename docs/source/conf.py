@@ -74,7 +74,7 @@ html_logo = "_static/logo-wordmark-light.svg"
 html_theme_options = {
     "style_external_links": False,
     "style_nav_header_background": "#2980B9",
-    "navigation_depth": -1,
+    "navigation_depth": 4,
     'logo_only': False,
 }
 

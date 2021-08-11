@@ -1,6 +1,6 @@
-**************************
-Read the Docs Sphinx Theme
-**************************
+****
+Home
+****
 
 This Sphinx_ theme was designed to provide a great reader experience for
 documentation users on both desktop and mobile devices. This theme is used
