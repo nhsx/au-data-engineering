@@ -2,10 +2,7 @@
 
 .. toctree::
    :maxdepth: 2
-   installation
-
-
-.. toctree::
-   :maxdepth: 1
-   :numbered:
-   changelog
+   :hidden:
+   
+   installation.rst
+   changelog.rst
