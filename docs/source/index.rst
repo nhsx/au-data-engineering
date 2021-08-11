@@ -2,11 +2,6 @@
 Read the Docs Sphinx Theme
 **************************
 
-.. toctree::
-
-   installation.rst
-   changelog.rst
-
 This Sphinx_ theme was designed to provide a great reader experience for
 documentation users on both desktop and mobile devices. This theme is used
 primarily on `Read the Docs`_ but can work with any Sphinx project. You can find
@@ -60,3 +55,12 @@ If you would like to help modify or translate the theme, you'll find more
 information on contributing in our `contributing guide`_.
 
 .. _contributing guide: https://sphinx-rtd-theme.readthedocs.io/en/latest/contributing.html
+
+
+.. contents:: Table of Contents
+   :depth: 2
+
+.. toctree::
+
+   installation.rst
+   changelog.rst
