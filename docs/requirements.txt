@@ -3,3 +3,4 @@ sphinx_rtd_theme==0.4.3
 sphinx-reredirects
 bokeh==2.0.2
 pandas==1.0.3
+sphinxcontrib-httpdomain==1.7.0
