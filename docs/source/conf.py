@@ -20,7 +20,7 @@
 project = u'NHSX Data Engineering'
 version = '0.0.1'
 release = '0.0.1'
-copyright = '© MIT Licence, NHSX 2021'
+copyright = '2021 NHSX, MIT Licence'
 author = 'Craig R Shenton, Mattia Ficarelli'
 language = 'en'
 
