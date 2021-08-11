@@ -55,12 +55,3 @@ If you would like to help modify or translate the theme, you'll find more
 information on contributing in our `contributing guide`_.
 
 .. _contributing guide: https://sphinx-rtd-theme.readthedocs.io/en/latest/contributing.html
-
-
-.. contents:: Table of Contents
-   :depth: 2
-
-.. toctree::
-
-   installation.rst
-   changelog.rst
