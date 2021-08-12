@@ -109,7 +109,7 @@ A workflow run is made up of one or more jobs. Each job runs in a fresh instance
 
 .. csv-table:: Virtual environments
    :header: "Virtual environment", "YAML workflow label"
-   :widths: 20, 20, 10
+   :widths: 30, 50
 
    "Windows Server 2019", "``windows-latest`` or ``windows-2019``"
    "Windows Server 2016", "``windows-2016``"
