@@ -2,6 +2,10 @@
 Design Principles
 *****************
 
+.. image:: _static/img/pipelines.png
+  :width: 600
+  :alt: Azure Data Factory Pipelines
+
 This Sphinx_ theme was designed to provide a great reader experience for
 documentation users on both desktop and mobile devices. This theme is used
 primarily on `Read the Docs`_ but can work with any Sphinx project. You can find
