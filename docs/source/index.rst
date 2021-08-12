@@ -41,14 +41,14 @@ For more information read the full documentation on `installing the theme`_
 
 
 .. toctree::
-   :caption: Introduction
+   :caption: Data Engineering
 
-   home
+   designprinciples
 
 .. toctree::
-   :caption: Main Documentation
+   :caption: Open Analytics
 
-   installation
+   openanalyticstemplate
 
 .. toctree::
    :caption: Appendix
