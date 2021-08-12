@@ -107,19 +107,21 @@ Jobs
 
 A workflow run is made up of one or more jobs. Each job runs in a fresh instance of a virtual environment specified by `runs-on`.
 
-| Virtual environment  | YAML workflow label                |
-| -------------------- | ---------------------------------- |
-| Windows Server 2019  | `windows-latest` or `windows-2019` |
-| Windows Server 2016  | `windows-2016`                     |
-| Ubuntu 20.04         | `ubuntu-latest` or `ubuntu-20.04`  |
-| Ubuntu 18.04         | `ubuntu-18.04`                     |
-| macOS Big Sur 11     | `macos-11`                         |
-| macOS Catalina 10.15 | `macos-latest` or `macos-10.15`    |
+.. csv-table:: Virtual environments
+   :header: "Virtual environment", "YAML workflow label"
+   :widths: 20, 20, 10
+
+   "Windows Server 2019", "``windows-latest`` or ``windows-2019``"
+   "Windows Server 2016", "``windows-2016``"
+   "Ubuntu 20.04", "``ubuntu-latest`` or ``ubuntu-20.04``"
+   "Ubuntu 18.04", "```ubuntu-18.04``"
+   "macOS Big Sur 11", "``macos-11``"
+   "macOS Catalina 10.15", "``macos-latest`` or ``macos-10.15``"
 
 Steps
 -----
 
-[Checkout](https://github.com/actions/checkout): This action checks-out your repository so the workflow can access it.
+Checkout (https://github.com/actions/checkout): This action checks-out your repository so the workflow can access it.
 
 .. code-block:: yaml
 
@@ -127,7 +129,7 @@ Steps
    uses: actions/checkout@v2
 
 
-[Setup python](https://github.com/actions/setup-python): This action sets up a Python environment for use in actions by installing and adding to PATH an available version of Python in this case python 3.8
+Setup python (https://github.com/actions/setup-python): This action sets up a Python environment for use in actions by installing and adding to PATH an available version of Python in this case python 3.8
 
 .. code-block:: yaml
 
@@ -156,7 +158,7 @@ In this case plotly, pandas, and pyYaml
    pyyaml==5.4.1
 
 
-Runs command-line programs using the operating system's shell. run the run.py to get the latest data
+Runs command-line programs using the operating system's shell. run the ``run.py`` to get the latest data
 
 .. code-block:: yaml
 
@@ -201,7 +203,7 @@ GitHub Pages (https://docs.github.com/en/pages/getting-started-with-github-pages
 
 You can use a static site generator to build your site for you or publish any static files that you push to your repository as follows:
 
-#. On GitHub, navigate to your site's repository, example: (https://github.com/nhsx/open-health-statistics).
+#. On GitHub, navigate to your site's repository.
 #. In the root of the repository, create a new file called ``index.md`` that contains the content for your site.
 #. Under your repository name, select ``Settings``.
 #. In the left sidebar, select ``Pages``.
