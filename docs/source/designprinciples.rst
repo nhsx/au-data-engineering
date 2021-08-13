@@ -50,7 +50,7 @@ Config as Code
 #. Adds git version control
 
 .. image:: _static/img/config-as-code.png
-  :width: 600
+  :width: 300
   :alt: Config as Code
 
 Docs as Code
@@ -62,5 +62,5 @@ Docs as Code
 
 
 .. image:: _static/img/doc-as-code.png
-  :width: 600
+  :width: 300
   :alt: Documentation as Code
