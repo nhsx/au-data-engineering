@@ -24,7 +24,7 @@ from sphinx.locale import _
 project = u'NHSX Data Engineering'
 version = '0.0.1'
 release = '0.0.1'
-copyright = '2021 NHSX, MIT Licence'
+copyright = '2021 NHS England and NHS Improvement, MIT Licence'
 author = 'Craig R Shenton, Mattia Ficarelli'
 language = 'en'
 
