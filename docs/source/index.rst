@@ -44,7 +44,7 @@ For more information read the full documentation on `installing the theme`_
    :caption: Data Engineering
 
    designprinciples
-   pandasadl
+   pandas2adl
 
 .. toctree::
    :caption: Open Analytics
