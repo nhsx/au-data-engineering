@@ -1,61 +1,66 @@
 *****************
-Design Principles
+Azure Design Principles
 *****************
+
+Data Engineering Concepts
+========
+
+.. image:: _static/img/high-level.png
+  :width: 600
+  :alt: Azure Data Factory Concepts
+
 
 .. image:: _static/img/pipelines.png
   :width: 600
   :alt: Azure Data Factory Pipelines
+  
+Design Patterns
+===============
 
-This Sphinx_ theme was designed to provide a great reader experience for
-documentation users on both desktop and mobile devices. This theme is used
-primarily on `Read the Docs`_ but can work with any Sphinx project. You can find
-a working demo of the theme in the `theme documentation`_
+#. Abstract and fully perameratised
+#. Reusable code
+#. Tested and robust
+#. Maintainable
+#. Efficient use of resources
 
-.. _Sphinx: http://www.sphinx-doc.org
-.. _Read the Docs: http://www.readthedocs.org
-.. _theme documentation: https://sphinx-rtd-theme.readthedocs.io/en/latest/
+Ingestion
+---------
 
-Installation
-============
+Standardised and parameterised ingestion templates for every scenario. Allow us to rapidly ingest new datasets with minimal configuration
 
-This theme is distributed on PyPI_ and can be installed with ``pip``:
+.. image:: _static/img/ingestion.png
+  :width: 600
+  :alt: Azure Data Factory Ingestion Pipelines
 
-.. code:: console
+Utilites
+--------
 
-   $ pip install sphinx-rtd-theme
+Utilities can be reusable code or logic app APIs that allow us to standardise specific functions called across multiple pipelines. Most involve sending data back and forth to systems outside data factory and/or updating configuration files
 
-To use the theme in your Sphinx project, you will need to add the following to
-your ``conf.py`` file:
+.. image:: _static/img/utilities.png
+  :width: 600
+  :alt: Azure Data Factory Utility Pipelines
 
-.. code:: python
+Config as Code
+==============
 
-    import sphinx_rtd_theme
+#. All pipelines are controlled from a JSON configuration file
+#. Centralises the orchestration 
+#. Avoids config mismatches between activities
+#. Adds git version control
 
-    extensions = [
-        ...
-        "sphinx_rtd_theme",
-    ]
+.. image:: _static/img/config-as-code.png
+  :width: 600
+  :alt: Config as Code
 
-    html_theme = "sphinx_rtd_theme"
+Docs as Code
+------------
 
-For more information read the full documentation on `installing the theme`_
+#. Principle that you should be writing documentation with the same tools as your code
+#. Take it one step further - documentation is auto generated from the code
+#. No way for documentation to be outdated or misaligned
 
-.. _PyPI: https://pypi.python.org/pypi/sphinx_rtd_theme
-.. _installing the theme: https://sphinx-rtd-theme.readthedocs.io/en/latest/installing.html
 
-Configuration
-=============
-
-This theme is highly customizable on both the page level and on a global level.
-To see all the possible configuration options, read the documentation on
-`configuring the theme`_.
-
-.. _configuring the theme: https://sphinx-rtd-theme.readthedocs.io/en/latest/configuring.html
-
-Contributing
-============
-
-If you would like to help modify or translate the theme, you'll find more
-information on contributing in our `contributing guide`_.
-
-.. _contributing guide: https://sphinx-rtd-theme.readthedocs.io/en/latest/contributing.html
+.. image:: _static/img/doc-as-code.png
+  :width: 600
+  :alt: Documentation as Code
