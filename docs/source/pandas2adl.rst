@@ -2,7 +2,10 @@
 Azure DataLake to Pandas
 ************************
 
-Azure function app to pull/push Azure Datalake files to ``pandas`` dataframe in memory. To avoid the 500mb limit of the ``tmp/`` folder.
+Azure function app to pull/push Azure Datalake files to ``pandas`` dataframe in memory. To avoid the 500mb limit of the ``/tmp`` folder.
+
+`Microsoft Azure docs <https://docs.microsoft.com/en-us/python/api/azure-storage-file-datalake/azure.storage.filedatalake.datalakefileclient?view=azure-python#methods>`_ ``azure-storage-file-datalake`` methods
+
 
 Metadata
 ========
@@ -69,6 +72,8 @@ Download
     downloaded_bytes = download.readall()
     df = pd.read_csv(io.BytesIO(downloaded_bytes))
 
+`Microsoft Azure docs <https://docs.microsoft.com/en-us/python/api/azure-storage-file-datalake/azure.storage.filedatalake.datalakefileclient?view=azure-python#download-file-offset-none--length-none----kwargs->`_ for the ``download-file`` method
+
 Upload
 ======
 
@@ -95,3 +100,4 @@ Upload
       length=file_length,
       overwrite=True)
 
+`Microsoft Azure docs <https://docs.microsoft.com/en-us/python/api/azure-storage-file-datalake/azure.storage.filedatalake.datalakefileclient?view=azure-python#upload-data-data--length-none--overwrite-false----kwargs->`_ for the ``upload-data`` method
