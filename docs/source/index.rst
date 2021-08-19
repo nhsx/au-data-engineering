@@ -18,7 +18,7 @@ NHSX Data Engineering Docs
 
    openanalyticstemplate
    digitalhealth
-   openheathstats
+   openhealthstats
 
 .. toctree::
    :caption: Appendix
