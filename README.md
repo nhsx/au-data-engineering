@@ -2,7 +2,7 @@
 
 ## Data Engineering repo list
 
-We have a series of repositories for our work that we have listed below. We have adopted the naming convention of starting each repo with `au-` for the Analytics Unit. Where some repos have a similar purpose we name them similarly, (e.g. `au-azure-*` for azure related code). We also try to impliment a naming convention so that users can infer a basic understanding of what a given thing does from its name.
+We have a series of repositories for our work that we have listed below. We have adopted the naming convention of starting each repo with `au-` for the Analytics Unit. Where some repos have a similar purpose we name them similarly, (e.g. `au-azure-*` for azure related code). We also try to implement a naming convention so that users can infer a basic understanding of what a given thing does from its name.
 
 ## Our Core repos
 
