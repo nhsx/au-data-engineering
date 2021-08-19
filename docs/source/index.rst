@@ -3,6 +3,11 @@ NHSX Data Engineering Docs
 **************************
 
 .. toctree::
+   :caption: Core Products
+
+   nhsappanalytics
+
+.. toctree::
    :caption: Data Engineering
 
    designprinciples
@@ -12,6 +17,8 @@ NHSX Data Engineering Docs
    :caption: Open Analytics
 
    openanalyticstemplate
+   digitalhealth
+   openheathstats
 
 .. toctree::
    :caption: Appendix
