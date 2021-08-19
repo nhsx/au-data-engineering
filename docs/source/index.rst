@@ -1,6 +1,10 @@
-**************************
-NHSX Data Engineering Docs
-**************************
+*****
+Index
+*****
+
+.. toctree::
+
+   index
 
 .. toctree::
    :caption: Core Products
