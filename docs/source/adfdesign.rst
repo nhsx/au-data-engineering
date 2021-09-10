@@ -2,9 +2,9 @@
 Azure Data Factory Design Principles 
 ************************************
 
-Open access and reusable Design documentation of utilities and modular pipelines used in the NHSX Analytics Unit Azure Data Factory (ADF) environment.
+Open access and reusable design documentation of utilities and modular pipelines used in the NHSX Analytics Unit Azure Data Factory (ADF) environment.
 
-ADF utilities
+ADF Utilities
 ==============
 
 Latest Folder Lookup
@@ -17,12 +17,13 @@ The latest folder lookup ADF utility allows you to find the most recent folder f
 **Problem:** Data is saved in directory of time stamped folders, as shown below.
 
 .. code:: python
-  root/
-  ├── directory/
-  │   ├── 2021-06-01/
-  │   ├── 2021-06-02/
-  │   ├── 2021-06-03/
-  │   └── 2021-06-04/
+
+    root/
+    ├── directory/
+    │   ├── 2021-06-01/
+    │   ├── 2021-06-02/
+    │   ├── 2021-06-03/
+    │   └── 2021-06-04/
 
 How to select the latest folder in an ADF pipeline based on the name of the folder (rather than the latest modified)?
 
@@ -31,7 +32,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   .. image:: _static/img/latest_folder/figure.png
     :width: 600
     :alt: Figure
-  *Figure: Latest folder lookup ADF utility*
+  *Figure: Overview of the latest folder lookup ADF utility*
 
 **Pipeline setup:**
 
@@ -85,7 +86,8 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
 
 #. Create a If Conditional activity. More information on the If Conditional ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-if-condition-activity>`_.
   a. Set the expression in the If Conditional activity (added as dynamic content) as 
-  ``@greater(formatDateTime(activity('get_folder_metadata_2').output.itemName,'yyyyMMdd'),formatDateTime(variables('prevFolder'),'yyyyMMdd'))``. 
+  ``@greater(formatDateTime(activity('get_folder_metadata_2').output.itemName,'yyyyMMdd'),
+  formatDateTime(variables('prevFolder'),'yyyyMMdd'))``. 
   This will check if the name of each folder (formatted as a date) is greater (i.e., the latest) than the previous folder in the loop, starting with the default value - '1970-01-01' (see Figure 6).
 
   .. image:: _static/img/latest_folder/figure_6.png
@@ -105,6 +107,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   a. Set ``Name = prevFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName.`` This will update the prevFolder value to the next folder in the set after each loop.
 
 **Output:**
+
 #. Create a 'latest_folder_source' dataset. 
   a. Set the path to ``@concat('root/directory/', dataset().folderName, '/')``.
 
@@ -112,7 +115,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   a. Set the parameter folderName to ``@variable('latestFolder')``.
 
 #. Create a Copy Data activity. More information on the Copy Data ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-overview>`_ (see Figure 8).
-  a.Set the 'latest_folder_source' dataset as the source and an appropriate dataset as sink where you want to save the latest data.
+  a. Set the 'latest_folder_source' dataset as the source and an appropriate dataset as sink where you want to save the latest data.
 
   .. image:: _static/img/latest_folder/figure_8.png
     :width: 600
