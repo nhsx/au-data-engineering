@@ -11,6 +11,7 @@ NHSX Data Engineering Docs
    :caption: Data Engineering
 
    pandas2adl
+   adfdesign
 
 .. toctree::
    :caption: Open Analytics
