@@ -91,8 +91,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   
   * Set the expression in the If Conditional activity (added as dynamic content) as:
   ``@greater(formatDateTime(activity('get_folder_metadata_2').output.itemName,'yyyyMMdd'),``
-  ``formatDateTime(variables('prevFolder'),'yyyyMMdd'))``. 
-  * This will check if the name of each folder (formatted as a date) is greater (i.e., the latest) than the previous folder in the loop, starting with the default value - '1970-01-01' (see Figure 6).
+  ``formatDateTime(variables('prevFolder'),'yyyyMMdd'))``. This will check if the name of each folder (formatted as a date) is greater (i.e., the latest) than the previous folder in the loop, starting with the default value - '1970-01-01' (see Figure 6).
 
   .. image:: _static/img/latest_folder/figure_6.png
     :width: 600
