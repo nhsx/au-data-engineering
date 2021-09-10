@@ -32,7 +32,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   .. image:: _static/img/latest_folder/figure.png
     :width: 600
     :alt: Figure
-  *Figure: Overview of the latest folder lookup ADF utility*
+            *Figure: Overview of the latest folder lookup ADF utility*
 
 **Pipeline setup:**
 
@@ -43,14 +43,14 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   .. image:: _static/img/latest_folder/figure_1.png
     :width: 600
     :alt: Figure 1
-  *Figure 1: Adding pipeline variables*
+            *Figure 1: Adding pipeline variables*
 
 #. Create a 'folder_metadata' dataset with the path set to the root directory of the time-stamped folder for example, ``root/directory/``
 
   .. image:: _static/img/latest_folder/figure_2.png
     :width: 600
     :alt: Figure 2
-  *Figure 2: Creating a folder_metadata dataset*
+            *Figure 2: Creating a folder_metadata dataset*
 
 #. Create a GetMetadata activity. More information on the GetMetadata ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-get-metadata-activity>`_ (see Figure 3).
   a. Link the 'folder_metadata' dataset to the GetMetadata activity under the dataset tab.
@@ -59,7 +59,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   .. image:: _static/img/latest_folder/figure_3.png
     :width: 600
     :alt: Figure 3
-  *Figure 3: Creating a GetMetadata activity*
+            *Figure 3: Creating a GetMetadata activity*
 
 **Loop setup:**
 
@@ -69,7 +69,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   .. image:: _static/img/latest_folder/figure_4.png
     :width: 600
     :alt: Figure 4
-  *Figure 4: Creating a ForEach activity*
+            *Figure 4: Creating a ForEach activity*
 
 #. Within the ForEach activity create a second get GetMetadata activity (see Figure 5).
   a. Create a 'date metadata' dataset with the path set to: ``@concat('root/directory/',dataset().latestDate)``.
@@ -80,7 +80,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   .. image:: _static/img/latest_folder/figure_5.png
     :width: 600
     :alt: Figure 5
-  *Figure 5: Creating a second GetMetadata activity, within the previously created ForEach activity*
+            *Figure 5: Creating a second GetMetadata activity, within the previously created ForEach activity*
 
 **Conditional setup:**
 
@@ -93,7 +93,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   .. image:: _static/img/latest_folder/figure_6.png
     :width: 600
     :alt: Figure 6
-  *Figure 6: Setting an expression within an If Conditional activity*
+            *Figure 6: Setting an expression within an If Conditional activity*
 
 #. In the If Conditional activity where ``Case = True`` (i.e.,  if the folder name is greater than the previous folder name) create a new Set Variable activity. More information on the Set Variable ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-set-variable-activity>`_ (see Figure 7).
   a. Within the Set Variable activity set ``Name = latestFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName``.
@@ -101,7 +101,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   .. image:: _static/img/latest_folder/figure_7.png
     :width: 600
     :alt: Figure 7
-  *Figure 7: Creating a Set Variable activity*
+            *Figure 7: Creating a Set Variable activity*
 
 #. Go back to the loop and add another Set Variable activity after the If Conditional activity.
   a. Set ``Name = prevFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName.`` This will update the prevFolder value to the next folder in the set after each loop.
@@ -120,5 +120,5 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   .. image:: _static/img/latest_folder/figure_8.png
     :width: 600
     :alt: Figure 8
-  *Figure 8: Creation of a Copy Data activity with the 'latest_folder_source’ dataset set as the source*
+            *Figure 8: Creation of a Copy Data activity with the 'latest_folder_source’ dataset set as the source*
 
