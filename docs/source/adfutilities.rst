@@ -93,8 +93,12 @@ Conditional setup:
 Create a If Conditional activity. More information on the If Conditional ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-if-condition-activity>`_.
   
   * Set the expression in the If Conditional activity (added as dynamic content) as:
-  * ``@greater(formatDateTime(activity('get_folder_metadata_2').output.itemName,'yyyyMMdd'),``
-  * ``formatDateTime(variables('prevFolder'),'yyyyMMdd'))``. This will check if the name of each folder (formatted as a date) is greater (i.e., the latest) than the previous folder in the loop, starting with the default value - '1970-01-01' (see Figure 7).
+
+.. code-block:: scala
+
+  @greater(formatDateTime(activity('get_folder_metadata_2').output.itemName,'yyyyMMdd'), formatDateTime(variables('prevFolder'),'yyyyMMdd'))``.
+
+This will check if the name of each folder (formatted as a date) is greater (i.e., the latest) than the previous folder in the loop, starting with the default value - '1970-01-01' (see Figure 7).
 
 .. image:: _static/img/latest_folder/if-condition.png
   :width: 600
