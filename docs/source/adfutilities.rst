@@ -11,8 +11,8 @@ Latest Folder Lookup
 
 The latest folder lookup ADF utility allows you to find the most recent folder from a directory of time-stamped folders. This utility was developed from a method to get the latest added file in a folder, the source of which can be found `here <https://stackoverflow.com/questions/60558731/get-the-latest-added-file-in-a-folder-azure-data-factory/60558836#60558836>`_. 
 
-Problem:
---------
+Problem
+-------
 
 Data is saved in directory of time stamped folders, as shown below.
 
@@ -27,15 +27,15 @@ Data is saved in directory of time stamped folders, as shown below.
 
 How to select the latest folder in an ADF pipeline based on the name of the folder (rather than the latest modified)?
 
-Pipeline setup:
----------------
+Pipeline setup
+--------------
+
+Here we develop a template solution in Azure Data Factory that will compare the names of time-stamped folders to find the folder with the latest date.
 
 .. image:: _static/img/latest_folder/overview.png
   :width: 600
   :alt: Overview of the latest folder lookup ADF utility
 *Figure 1: Overview of the latest folder lookup ADF utility*
-
-Here we develop a template solution in Azure Data Factory that will compare the names of time-stamped folders to find the folder with the latest date.
 
 **Step 1.** Create two pipeline variables: ``latestFolder`` and ``prevFolder`` (see Figure 2).
   
@@ -64,8 +64,8 @@ Here we develop a template solution in Azure Data Factory that will compare the 
   :alt: Creating a GetMetadata activity
 *Figure 4: Creating a GetMetadata activity*
 
-Loop setup:
------------
+Loop setup
+----------
 
 **Step 4.** Create a 'ForEach' activity. More information on the ForEach ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-for-each-activity>`_.
   
@@ -87,8 +87,8 @@ Loop setup:
   :alt: Creating a second GetMetadata activity
 *Figure 6: Creating a second GetMetadata activity, within the previously created ForEach activity*
 
-Conditional setup:
-------------------
+Conditional setup
+-----------------
 
 **Step 6.** Create a 'If Conditional' activity. More information on the If Conditional ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-if-condition-activity>`_.
   
@@ -118,8 +118,8 @@ This will check if the name of each folder (formatted as a date) is greater (i.e
   
   * Set ``Name = prevFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName.`` This will update the prevFolder value to the next folder in the set after each loop.
 
-Output:
--------
+Output
+------
 
 **Step 10.** Create a 'latest_folder_source' dataset.
 
