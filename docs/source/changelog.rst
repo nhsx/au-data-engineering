@@ -19,9 +19,6 @@ Fixes
 
 * Swaped pandas2adl.rst name to 'Azure Databricks Functions'
 
-Other Changes
----------------
-
 v0.0.1
 ======
 
