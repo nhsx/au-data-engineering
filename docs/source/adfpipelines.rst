@@ -7,11 +7,30 @@ Open access and reusable design documentation of pipelines used in the NHSX Anal
 SQL Database Ingestion Pipeline
 ===============================
 
-**Developed by:** Craig Shenton and Mattia Ficarelli 
+Metadata
+--------
 
-Template name: ``ingestion_sql``
+.. code:: python
 
-Here we develop a template solution in Azure Data Factory. The Azure Data Factory json configuration file is `available below <#json-configuration>`_.
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           ingestion_sql.json
+    DESCRIPTION:
+                    Pipeline to ingest raw data to Azure Datalake blob storage from a SQL database.
+    USAGE:
+                    ...
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+The Azure Data Factory json configuration file is `available below <#json-configuration>`_.
 
 .. image:: _static/img/pipeline_temps/sql-ingest.png
   :width: 600
@@ -21,7 +40,7 @@ Here we develop a template solution in Azure Data Factory. The Azure Data Factor
 Description
 -----------
 
-Pipeline to ingest raw data in a time-stamped folder to Azure Datalake blob storage from a SQL database.
+Pipeline to ingest raw data to Azure Datalake blob storage from a SQL database.
 
  1. Looks up the JSON configuration file for this pipeline
  2. Source:
@@ -42,7 +61,7 @@ Pipeline to ingest raw data in a time-stamped folder to Azure Datalake blob stor
 Pipeline Configuration
 ----------------------
 
-.. code:: json
+.. code:: python
 
     {
       "pipeline": {

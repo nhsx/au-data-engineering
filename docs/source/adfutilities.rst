@@ -7,9 +7,32 @@ Open access and reusable design documentation of utilities used in the NHSX Anal
 Latest Folder Lookup
 ====================
 
-**Developed by:** Craig Shenton and Mattia Ficarelli 
+Metadata
+--------
 
-The latest folder lookup ADF utility allows you to find the most recent folder from a directory of time-stamped folders. This utility was developed from a method to get the latest added file in a folder, the source of which can be found `here <https://stackoverflow.com/questions/60558731/get-the-latest-added-file-in-a-folder-azure-data-factory/60558836#60558836>`_. 
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           latestFolder.json.json
+    DESCRIPTION:
+                    The latest folder lookup ADF utility allows you to find the most recent folder from a directory of time-stamped folders.
+    USAGE:
+                    ...
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        19 Sept 2021
+    VERSION:        0.0.1
+    """
+
+The latest folder lookup ADF utility allows you to find the most recent folder from a directory of time-stamped folders. This utility was developed from a method to get the latest added file in a folder, the source of which can be found `here <https://stackoverflow.com/questions/60558731/get-the-latest-added-file-in-a-folder-azure-data-factory/60558836#60558836>`_.
+
+The Azure Data Factory json configuration file is `available below <#json-configuration>`_.
 
 Problem
 -------
