@@ -138,3 +138,238 @@ Output
   :alt: Creation of a Copy Data activity
 *Figure 9: Creation of a Copy Data activity with the 'latest_folder_source’ dataset set as the source*
 
+JSON Configuration
+------------------
+
+Use the JSON configuration file below to use the tamplate in your data pipelines
+
+.. code-block:: json
+  {
+      "name": "latestFolder_docs",
+      "properties": {
+          "activities": [
+              {
+                  "name": "get_folder_metadata",
+                  "description": "Retrieves the folder metadata for the timestamped (YYYY-MM-DD)  folders in raw.",
+                  "type": "GetMetadata",
+                  "dependsOn": [],
+                  "policy": {
+                      "timeout": "7.00:00:00",
+                      "retry": 0,
+                      "retryIntervalInSeconds": 30,
+                      "secureOutput": false,
+                      "secureInput": false
+                  },
+                  "userProperties": [],
+                  "typeProperties": {
+                      "dataset": {
+                          "referenceName": "documentation_folder_metadata",
+                          "type": "DatasetReference"
+                      },
+                      "fieldList": [
+                          "childItems"
+                      ],
+                      "storeSettings": {
+                          "type": "AzureBlobFSReadSettings",
+                          "recursive": true,
+                          "enablePartitionDiscovery": false
+                      },
+                      "formatSettings": {
+                          "type": "DelimitedTextReadSettings"
+                      }
+                  }
+              },
+              {
+                  "name": "get_latest_folder_loop",
+                  "description": "Retrieves the latest folder through a loop comparing all timestamped (YYYY-MM-DD)  folders in raw. Sets the variable 'latestFolder' as this folder. ",
+                  "type": "ForEach",
+                  "dependsOn": [
+                      {
+                          "activity": "get_folder_metadata",
+                          "dependencyConditions": [
+                              "Succeeded"
+                          ]
+                      }
+                  ],
+                  "userProperties": [],
+                  "typeProperties": {
+                      "items": {
+                          "value": "@activity('get_folder_metadata').output.childItems",
+                          "type": "Expression"
+                      },
+                      "isSequential": true,
+                      "activities": [
+                          {
+                              "name": "get_folder_metadata_2",
+                              "description": "Retrieves folder metadata for a second timestamped (YYYY-MM-DD)  folder in raw.",
+                              "type": "GetMetadata",
+                              "dependsOn": [],
+                              "policy": {
+                                  "timeout": "7.00:00:00",
+                                  "retry": 0,
+                                  "retryIntervalInSeconds": 30,
+                                  "secureOutput": false,
+                                  "secureInput": false
+                              },
+                              "userProperties": [],
+                              "typeProperties": {
+                                  "dataset": {
+                                      "referenceName": "documentation_date_metadata",
+                                      "type": "DatasetReference",
+                                      "parameters": {
+                                          "latestDate": {
+                                              "value": "@item().name",
+                                              "type": "Expression"
+                                          }
+                                      }
+                                  },
+                                  "fieldList": [
+                                      "itemName"
+                                  ],
+                                  "storeSettings": {
+                                      "type": "AzureBlobFSReadSettings",
+                                      "recursive": true,
+                                      "enablePartitionDiscovery": false
+                                  },
+                                  "formatSettings": {
+                                      "type": "DelimitedTextReadSettings"
+                                  }
+                              }
+                          },
+                          {
+                              "name": "if_conditional_loop",
+                              "description": "Compares the time stamp for folder 1 and 2 and selects the one with the most recent time timestamp (YYYY-MM-DD). The if conditional loop then conducts a  iterative time stamp comparison for all the folders in raw.",
+                              "type": "IfCondition",
+                              "dependsOn": [
+                                  {
+                                      "activity": "get_folder_metadata_2",
+                                      "dependencyConditions": [
+                                          "Succeeded"
+                                      ]
+                                  }
+                              ],
+                              "userProperties": [],
+                              "typeProperties": {
+                                  "expression": {
+                                      "value": "@greater(formatDateTime(activity('get_folder_metadata_2').output.itemName,'yyyyMMdd'),formatDateTime(variables('prevFolder'),'yyyyMMdd'))",
+                                      "type": "Expression"
+                                  },
+                                  "ifTrueActivities": [
+                                      {
+                                          "name": "set_latestFolder_variable_2",
+                                          "description": "Selects the folder with the most recent timestamp (YYYY-MM-DD) for the next comparisons in the loop.",
+                                          "type": "SetVariable",
+                                          "dependsOn": [],
+                                          "userProperties": [],
+                                          "typeProperties": {
+                                              "variableName": "latestFolder",
+                                              "value": {
+                                                  "value": "@activity('get_folder_metadata_2').output.itemName",
+                                                  "type": "Expression"
+                                              }
+                                          }
+                                      }
+                                  ]
+                              }
+                          },
+                          {
+                              "name": "set_latestFolder_variable",
+                              "description": "Following the completion of the loop sets the LatestFolder variable as the most recent time stamped (YYYY-MM-DD) folder found in raw. ",
+                              "type": "SetVariable",
+                              "dependsOn": [
+                                  {
+                                      "activity": "if_conditional_loop",
+                                      "dependencyConditions": [
+                                          "Succeeded"
+                                      ]
+                                  }
+                              ],
+                              "userProperties": [],
+                              "typeProperties": {
+                                  "variableName": "prevFolder",
+                                  "value": {
+                                      "value": "@activity('get_folder_metadata_2').output.itemName",
+                                      "type": "Expression"
+                                  }
+                              }
+                          }
+                      ]
+                  }
+              },
+              {
+                  "name": "Copy data",
+                  "type": "Copy",
+                  "dependsOn": [
+                      {
+                          "activity": "get_latest_folder_loop",
+                          "dependencyConditions": [
+                              "Succeeded"
+                          ]
+                      }
+                  ],
+                  "policy": {
+                      "timeout": "7.00:00:00",
+                      "retry": 0,
+                      "retryIntervalInSeconds": 30,
+                      "secureOutput": false,
+                      "secureInput": false
+                  },
+                  "userProperties": [],
+                  "typeProperties": {
+                      "source": {
+                          "type": "DelimitedTextSource",
+                          "storeSettings": {
+                              "type": "AzureBlobFSReadSettings",
+                              "recursive": true,
+                              "enablePartitionDiscovery": false
+                          },
+                          "formatSettings": {
+                              "type": "DelimitedTextReadSettings"
+                          }
+                      },
+                      "sink": {
+                          "type": "DelimitedTextSink",
+                          "storeSettings": {
+                              "type": "AzureBlobFSWriteSettings"
+                          },
+                          "formatSettings": {
+                              "type": "DelimitedTextWriteSettings",
+                              "quoteAllText": true,
+                              "fileExtension": ".txt"
+                          }
+                      },
+                      "enableStaging": false
+                  },
+                  "inputs": [
+                      {
+                          "referenceName": "documentation_proc_source",
+                          "type": "DatasetReference",
+                          "parameters": {
+                              "folderName": "@variables('latestFolder')"
+                          }
+                      }
+                  ],
+                  "outputs": [
+                      {
+                          "referenceName": "documentation_proc_sink",
+                          "type": "DatasetReference"
+                      }
+                  ]
+              }
+          ],
+          "variables": {
+              "latestFolder": {
+                  "type": "String"
+              },
+              "prevFolder": {
+                  "type": "String",
+                  "defaultValue": "1970-01-01"
+              }
+          },
+          "folder": {
+              "name": "documentation"
+          },
+          "annotations": []
+      }
+  }
+
