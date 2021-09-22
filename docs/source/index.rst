@@ -11,8 +11,8 @@ NHSX Data Engineering Docs
    :caption: Data Engineering
    
    readme
-   adfdesign
-   pandas2adl
+   adfutilities
+   databricksfunc
 
 .. toctree::
    :caption: Open Analytics
