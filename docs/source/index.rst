@@ -11,6 +11,7 @@ NHSX Data Engineering Docs
    :caption: Data Engineering
    
    readme
+   adfpipelines
    adfutilities
    databricksfunc
 
