@@ -9,16 +9,15 @@ NHSX Data Engineering Docs
 
 .. toctree::
    :caption: Data Engineering
-
-   pandas2adl
+   
+   readme
    adfdesign
+   pandas2adl
 
 .. toctree::
    :caption: Open Analytics
 
    openanalyticstemplate
-   digitalhealth
-   openhealthstats
 
 .. toctree::
    :caption: Appendix

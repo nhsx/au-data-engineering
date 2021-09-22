@@ -1,6 +1,6 @@
-************************************
-Azure Data Factory Design Principles 
-************************************
+**********************************
+Azure Data Factory Design Patterns 
+**********************************
 
 Open access and reusable design documentation of utilities and modular pipelines used in the NHSX Analytics Unit Azure Data Factory (ADF) environment.
 
