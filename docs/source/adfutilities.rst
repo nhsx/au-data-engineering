@@ -14,7 +14,7 @@ The latest folder lookup ADF utility allows you to find the most recent folder f
 Problem:
 --------
 
- Data is saved in directory of time stamped folders, as shown below.
+Data is saved in directory of time stamped folders, as shown below.
 
 .. code:: bash
 
@@ -94,7 +94,7 @@ Conditional setup:
   
 **Step 7** Set the expression in the If Conditional activity (added as dynamic content) as:
 
-.. code-block:: python
+.. code-block:: bash
 
   @greater(formatDateTime(activity('get_folder_metadata_2').output.itemName,'yyyyMMdd'),formatDateTime(variables('prevFolder'),'yyyyMMdd'))
 
