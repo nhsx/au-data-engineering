@@ -30,7 +30,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
 Pipeline setup
 --------------
 
-Here we develop a template solution in Azure Data Factory that will compare the names of time-stamped folders to find the folder with the latest date.
+Here we develop a template solution in Azure Data Factory that will compare the names of time-stamped folders to find the folder with the latest date. The json configuration file is :ref:`avaiable below <JSON Configuration>`:.
 
 .. image:: _static/img/latest_folder/overview.png
   :width: 600
