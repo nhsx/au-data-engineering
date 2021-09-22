@@ -23,21 +23,21 @@ Description
 
 Pipeline to ingest raw data in a time-stamped folder to Azure Datalake blob storage from a SQL database.
 
- 1. Lookups the JSON configuration file for this pipeline
- 2. Source:
+1. Lookups the JSON configuration file for this pipeline
+2. Source:
 
-    a. Sets the source database owner (dbo)
-    b. Sets the source table
-    c. Sets the SQL query
+  a. Sets the source database owner (dbo)
+  b. Sets the source table
+  c. Sets the SQL query
 
- 3. Sink:
+3. Sink:
 
-    a. Sets the file system
-    b. Sets the sink path
-    c. Sets the sink file
+  a. Sets the file system
+  b. Sets the sink path
+  c. Sets the sink file
 
- 4. Copy activity copies the data returned from the SQL query as either a .csv file or a .parquet file.
- 5. If the copy activity fails, the error notification logic app API will notify the specified email address of the error
+4. Copy activity copies the data returned from the SQL query as either a .csv file or a .parquet file.
+5. If the copy activity fails, the error notification logic app API will notify the specified email address of the error
 
 Pipeline Configuration
 ----------------------
