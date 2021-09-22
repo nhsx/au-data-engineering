@@ -23,7 +23,7 @@ Description
 
 Pipeline to ingest raw data in a time-stamped folder to Azure Datalake blob storage from a SQL database.
 
- 1. Lookups the JSON configuration file for this pipeline
+ 1. Looks up the JSON configuration file for this pipeline
  2. Source:
 
     a. Sets the source database owner (dbo)
