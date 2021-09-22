@@ -33,13 +33,13 @@ Metadata
 
 The Azure Data Factory json configuration file is `available below <#json-configuration>`_.
 
+Description
+-----------
+
 .. image:: _static/img/pipeline_temps/sql-ingest.png
   :width: 600
   :alt: Data ingestion from a SQL database
 *Figure 1: Data ingestion from a SQL database*
-
-Description
------------
 
 Pipeline to ingest raw data to Azure Datalake blob storage from a SQL database.
 
