@@ -1,6 +1,9 @@
-************************
-Azure DataLake to Pandas
-************************
+**************************
+Azure Databricks Functions
+**************************
+
+DataLake to Pandas
+==================
 
 Azure function app to pull/push Azure Datalake files to ``pandas`` dataframe in memory. To avoid the 500mb limit of the ``/tmp`` folder.
 
@@ -8,7 +11,7 @@ Azure function app to pull/push Azure Datalake files to ``pandas`` dataframe in 
 
 
 Metadata
-========
+--------
 
 .. code:: python
 
@@ -33,7 +36,7 @@ Metadata
     """
 
 Imports
-=======
+-------
 
 .. code:: python
 
@@ -52,7 +55,7 @@ Imports
     import azure.functions as func
 
 Download
-========
+--------
 
 .. code:: python
 
@@ -75,7 +78,7 @@ Download
 `Microsoft Azure docs <https://docs.microsoft.com/en-us/python/api/azure-storage-file-datalake/azure.storage.filedatalake.datalakefileclient?view=azure-python#download-file-offset-none--length-none----kwargs->`_ for the ``download-file`` method
 
 Upload
-======
+------
 
 .. code:: python
 
