@@ -21,7 +21,8 @@ Metadata
     """
     FILE:           ingestion_sql.json
     DESCRIPTION:
-                    Pipeline to ingest raw data to Azure Datalake blob storage from a SQL database.
+                    Pipeline to ingest raw data to Azure Datalake blob storage
+                    from a SQL database.
     USAGE:
                     ...
     CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
