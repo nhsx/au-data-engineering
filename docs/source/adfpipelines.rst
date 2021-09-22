@@ -1,6 +1,6 @@
-*************************************
-Azure Data Factory Pipeline Templates 
-*************************************
+****************************
+Azure Data Factory Templates 
+****************************
 
 Open access and reusable design documentation of pipelines used in the NHSX Analytics Unit Azure Data Factory (ADF) environment.
 
@@ -23,17 +23,17 @@ Description
 
 Pipeline to ingest raw data in a time-stamped folder to Azure Datalake blob storage from a SQL database.
 
- *. Lookups the JSON configuration file for this pipeline.
- *. Source:
-    *. Sets the source database owner (dbo).
-    *. Sets the source table.
-    *. Sets the SQL query.
- *. Sink:
-    *. Sets the file system.
-    *. Sets the sink path.
-    *. Sets the sink file.
- *. Copy activity copies the data returned from the SQL query as either a .csv file or a .parquet file. 
- *. If the copy activity fails, fails, the error notification logic app API will notify the specified email address of the error.
+ 1. Lookups the JSON configuration file for this pipeline.
+ 2. Source:
+    2.1. Sets the source database owner (dbo).
+    2.2. Sets the source table.
+    2.3. Sets the SQL query.
+ 3. Sink:
+    3.1. Sets the file system.
+    3.2. Sets the sink path.
+    3.3. Sets the sink file.
+ 4. Copy activity copies the data returned from the SQL query as either a .csv file or a .parquet file. 
+ 5. If the copy activity fails, fails, the error notification logic app API will notify the specified email address of the error.
 
 Pipeline Configuration
 ----------------------
@@ -59,5 +59,5 @@ JSON Configuration
 
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
 
-:download:`latestFolder.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-utilities/latestFolder.json>`
+:download:`sql-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/sql-ingestion.json>`
 

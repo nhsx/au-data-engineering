@@ -1,0 +1,343 @@
+{
+    "name": "ingestion_sql",
+    "properties": {
+        "activities": [
+            {
+                "name": "set source table",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sourceTable",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.source_table",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "configFile lookup",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "configFile",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "configFile": {
+                                "value": "@pipeline().parameters.configFile",
+                                "type": "Expression"
+                            },
+                            "configPath": {
+                                "value": "@pipeline().parameters.configPath",
+                                "type": "Expression"
+                            },
+                            "configFS": {
+                                "value": "@pipeline().parameters.configFS",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "set fileSystem",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "fileSystem",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.adl_file_system",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set sink path",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set fileSystem",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sinkPath",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.sink_path",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set SQL query",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set source table",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set source dbo",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sqlQuery",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.source_query",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set sink file",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set fileSystem",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sinkFile",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.sink_file",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set source dbo",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sourceDbo",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.source_dbo",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "copy data from SQL database to ADL2",
+                "description": "Copies  underlying data Table",
+                "type": "Copy",
+                "dependsOn": [
+                    {
+                        "activity": "set SQL query",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set sink path",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set sink file",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureSqlSource",
+                        "sqlReaderQuery": {
+                            "value": "@variables('sqlQuery')",
+                            "type": "Expression"
+                        },
+                        "queryTimeout": "02:00:00",
+                        "partitionOption": "None"
+                    },
+                    "sink": {
+                        "type": "ParquetSink",
+                        "storeSettings": {
+                            "type": "AzureBlobFSWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "ParquetWriteSettings"
+                        }
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                            "allowDataTruncation": true,
+                            "treatBooleanAsNumber": false
+                        }
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "sql_table_source",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "sourceTable": {
+                                "value": "@variables('sourceTable')",
+                                "type": "Expression"
+                            },
+                            "sourceSchema": {
+                                "value": "@variables('sourceDbo')",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "sink_parquet",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "filePath": {
+                                "value": "@variables('sinkPath')",
+                                "type": "Expression"
+                            },
+                            "fileName": {
+                                "value": "@variables('sinkFile')",
+                                "type": "Expression"
+                            },
+                            "fileSystem": {
+                                "value": "@variables('fileSystem')",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "error_notification_1",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "copy data from SQL database to ADL2",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "error_notification",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": false,
+                    "parameters": {
+                        "subjectLine": {
+                            "value": "@concat('ADF Pipeline Error:', pipeline().DataFactory, ' ', pipeline().Pipeline)",
+                            "type": "Expression"
+                        },
+                        "errorMsg": {
+                            "value": "@concat('Error in activity: ', activity('copy data from SQL server to ADL2').Error.Message)",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "configFile": {
+                "type": "string",
+                "defaultValue": "config_debug.json"
+            },
+            "configPath": {
+                "type": "string",
+                "defaultValue": "config/pipelines/debug"
+            },
+            "configFS": {
+                "type": "string",
+                "defaultValue": "datalake-file-system"
+            }
+        },
+        "variables": {
+            "sourceTable": {
+                "type": "String"
+            },
+            "fileSystem": {
+                "type": "String"
+            },
+            "sinkFile": {
+                "type": "String"
+            },
+            "sinkPath": {
+                "type": "String"
+            },
+            "sqlQuery": {
+                "type": "String"
+            },
+            "sourceDbo": {
+                "type": "String"
+            }
+        },
+        "folder": {
+            "name": "templates/ingestion"
+        },
+        "annotations": []
+    }
+}
