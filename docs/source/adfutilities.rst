@@ -143,5 +143,5 @@ JSON Configuration
 
 Download the JSON configuration file below to use this template in your data pipelines.
 
-:download:`latestFolder.json <config-files/adf-utilites/latestFolder.json>`
+:download:`latestFolder.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-utilities/latestFolder.json>`
 
