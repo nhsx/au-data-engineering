@@ -11,6 +11,7 @@ We have a series of repositories for our work that we have listed below. We have
 | [nhsx/au-data-engineering](https://github.com/nhsx/nhsx-data-engineering)   | [[Link](https://nhsx.github.io/au-data-engineering/)] | NHSX Data Engineering Documentation | Open |
 | [nhsx/au-azure-data-factory]()   | [[Link](https://github.com/nhsx/au-azure-data-factory)] | Azure Data Factory Code             | Private |
 | [nhsx/au-azure-databricks]()     | [[Link](https://github.com/nhsx/au-azure-databricks)]   | Azure Databricks Code               | Open |
+| [nhsx/au-tableau-analytics]()    | [[Link](https://github.com/nhsx/au-tableau-analytics)]  | Tableau Analytics Workbooks         | Open |
 
 ## Our Product repos
 
