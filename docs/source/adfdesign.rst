@@ -30,7 +30,6 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
 **Solution:**
 
   .. image:: _static/img/latest_folder/figure.png
-    :target: _static/img/latest_folder/figure.png
     :width: 600
     :alt: Figure
   *Figure: Overview of the latest folder lookup ADF utility*
@@ -43,7 +42,6 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   * The ``prevFolder`` variable is set to a historical date before you started collecting data for example, ‘1970-01-01’
 
   .. image:: _static/img/latest_folder/figure_1a.png
-    :target: _static/img/latest_folder/figure1a.png
     :width: 600
     :alt: Figure 1
   *Figure 1: Adding pipeline variables*
