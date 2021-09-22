@@ -26,9 +26,9 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
 
 **Solution:**
 
-  .. image:: _static/img/latest_folder/figure.png
+  .. image:: _static/img/latest_folder/overview.png
     :width: 600
-    :alt: Figure
+    :alt: Overview of the latest folder lookup ADF utility
   *Figure: Overview of the latest folder lookup ADF utility*
 
 **Pipeline setup:**
@@ -38,16 +38,16 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   * The ``latestFolder`` variable is an empty string to save the latest folder name.
   * The ``prevFolder`` variable is set to a historical date before you started collecting data for example, ‘1970-01-01’
 
-  .. image:: _static/img/latest_folder/figure_1a.png
+  .. image:: _static/img/latest_folder/pipeline-variables.png
     :width: 600
-    :alt: Figure 1
+    :alt: Adding pipeline variables
   *Figure 1: Adding pipeline variables*
 
 * Create a 'folder_metadata' dataset with the path set to the root directory of the time-stamped folder for example, ``root/directory/``
 
-  .. image:: _static/img/latest_folder/figure_2.png
+  .. image:: _static/img/latest_folder/new_folder-metadata.png
     :width: 600
-    :alt: Figure 2
+    :alt: Creating a folder_metadata dataset
   *Figure 2: Creating a folder_metadata dataset*
 
 * Create a GetMetadata activity. More information on the GetMetadata ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-get-metadata-activity>`_ (see Figure 3).
