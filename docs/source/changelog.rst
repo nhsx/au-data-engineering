@@ -2,6 +2,26 @@
 Changelog
 *********
 
+v0.0.2
+======
+
+:Date: Sept 20, 2021
+
+New Features
+-------------
+
+* Added overview of Azure page
+* Added first ADF pipeline templates
+* Added first ADF utility template
+
+Fixes
+-----
+
+* Swaped pandas2adl.rst name to 'Azure Databricks Functions'
+
+Other Changes
+---------------
+
 v0.0.1
 ======
 
