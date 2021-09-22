@@ -42,7 +42,7 @@ How to select the latest folder in an ADF pipeline based on the name of the fold
   * The ``latestFolder`` variable is an empty string to save the latest folder name.
   * The ``prevFolder`` variable is set to a historical date before you started collecting data for example, ‘1970-01-01’
 
-  .. image:: _static/img/latest_folder/figure_1.png
+  .. image:: _static/img/latest_folder/figure_1a.png
     :target: _static/img/latest_folder/figure1a.png
     :width: 600
     :alt: Figure 1
