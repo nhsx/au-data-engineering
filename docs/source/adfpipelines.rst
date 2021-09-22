@@ -13,10 +13,10 @@ Template name: ``ingestion_sql``
 
 Here we develop a template solution in Azure Data Factory. The Azure Data Factory json configuration file is `available below <#json-configuration>`_.
 
-.. image:: _static/img/latest_folder/overview.png
+.. image:: _static/img/pipeline_temps/sql-ingest.png
   :width: 600
-  :alt: Overview of the latest folder lookup ADF utility
-*Figure 1: Overview of the latest folder lookup ADF utility*
+  :alt: Data ingestion from a SQL database
+*Figure 1: Data ingestion from a SQL database*
 
 Description
 -----------
@@ -24,9 +24,11 @@ Description
 Pipeline to ingest raw data in a time-stamped folder to Azure Datalake blob storage from a SQL database.
 
  *. Lookups the JSON configuration file for this pipeline.
+ *. Source:
     *. Sets the source database owner (dbo).
-    *. Sets the SQL query.
     *. Sets the source table.
+    *. Sets the SQL query.
+ *. Sink:
     *. Sets the file system.
     *. Sets the sink path.
     *. Sets the sink file.
