@@ -30,14 +30,14 @@ Our Core Repositories
 Our Product Repositories
 ------------------------
 
-+-----------------------------------+------------------------------------------------------------------------------------------+----------+
-| Name                              | Description                                                                              | Status   |
-+===================================+==========================================================================================+==========+
-| nhsx/nhs-app-analytics-dashboard  | The NHS App dashboard shows uptake and useage of the NHS App across England              | Open     |
-+-----------------------------------+------------------------------------------------------------------------------------------+----------+
-| nhsx/digital-health-insights      | Analytical insights on the digital transformation of the NHS                             | Open     |
-+-----------------------------------+------------------------------------------------------------------------------------------+----------+
-| nhsx/open-health-statistics       | Collecting statistics on open source NHS and healthcare related code repositories        | Open     |
-+-----------------------------------+------------------------------------------------------------------------------------------+----------+
-| nhsx/open-analytics-template      | NHS.UK themed template for open analytics projects                                       | Open     |
-+-----------------------------------+------------------------------------------------------------------------------------------+----------+
++------------------------------------+------------------------------------------------------------------------------------------+----------+
+| Name                               | Description                                                                              | Status   |
++====================================+==========================================================================================+==========+
+| nhsx/nhs-app-analytics-dashboard   | The NHS App dashboard shows uptake and useage of the NHS App across England              | Open     |
++------------------------------------+------------------------------------------------------------------------------------------+----------+
+| nhsx/digital-health-insights       | Analytical insights on the digital transformation of the NHS                             | Open     |
++------------------------------------+------------------------------------------------------------------------------------------+----------+
+| nhsx/open-health-statistics        | Collecting statistics on open source NHS and healthcare related code repositories        | Open     |
++------------------------------------+------------------------------------------------------------------------------------------+----------+
+| nhsx/open-analytics-template       | NHS.UK themed template for open analytics projects                                       | Open     |
++------------------------------------+------------------------------------------------------------------------------------------+----------+
