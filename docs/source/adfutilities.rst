@@ -133,14 +133,19 @@ This will check if the name of each folder (formatted as a date) is greater (i.e
   
   * Within the Set Variable activity set ``Name = latestFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName`` (see Figure 8).
 
-.. image:: _static/img/latest_folder/set-variable.png
+.. image:: _static/img/latest_folder/set-variable2.png
   :width: 600
-  :alt: Creating a Set Variable activity
-*Figure 8: Creating a Set Variable activity*
+  :alt: Creating a Set Variable activity where latest folder = true
+*Figure 8: Creating a Set Variable activity where latest folder = true*
 
 **Step 9.** Go back to the loop and add another Set Variable activity after the If Conditional activity.
   
-  * Set ``Name = prevFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName.`` This will update the prevFolder value to the next folder in the set after each loop.
+  * Set ``Name = prevFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName`` (see Figure 10). This will update the prevFolder value to the next folder in the set after each loop.
+
+.. image:: _static/img/latest_folder/set-variable.png
+  :width: 600
+  :alt: Creating a Set Variable activity for the previous folder
+*Figure 9: Creating a Set Variable activity for the previous folder*
 
 Output
 ------
@@ -155,12 +160,12 @@ Output
 
 **Step 12.** Create a 'Copy Data' activity. More information on the Copy Data ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-overview>`_.
 
-  * Set the 'latest_folder_source' dataset as the source and an appropriate dataset as sink where you want to save the latest data (see Figure 9).
+  * Set the 'latest_folder_source' dataset as the source and an appropriate dataset as sink where you want to save the latest data (see Figure 10).
 
 .. image:: _static/img/latest_folder/copy-data.png
   :width: 600
   :alt: Creation of a Copy Data activity
-*Figure 9: Creation of a Copy Data activity with the 'latest_folder_source’ dataset set as the source*
+*Figure 10: Creation of a Copy Data activity with the 'latest_folder_source’ dataset set as the source*
 
 JSON Configuration
 ------------------
