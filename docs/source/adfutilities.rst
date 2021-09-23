@@ -78,8 +78,11 @@ Here we develop a template solution in Azure Data Factory that will compare the 
   :alt: Creating a folder_metadata dataset
 *Figure 3: Creating a folder_metadata dataset*
 
-**Step 3.** Create a GetMetadata activity. More information on the GetMetadata ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-get-metadata-activity>`_.
-  
+**Step 3.** Create a GetMetadata activity.
+
+.. note::
+   More information on the GetMetadata ADF activity can be found in the `Microsoft documentation <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-get-metadata-activity>`_.
+
   * Link the 'folder_metadata' dataset to the GetMetadata activity under the dataset tab.
   * Add a 'Field List' argument as ``Child Items``, this will list each subfolder in the 'folder metadata' dataset (see Figure 4).
 
@@ -91,7 +94,10 @@ Here we develop a template solution in Azure Data Factory that will compare the 
 Loop setup
 ----------
 
-**Step 4.** Create a 'ForEach' activity. More information on the ForEach ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-for-each-activity>`_.
+**Step 4.** Create a 'ForEach' activity.
+  
+.. note::
+   More information on the ForEach ADF activity can be found in the `Microsoft documentation <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-for-each-activity>`_.
   
   * In the ForEach activity settings, set 'items' as ``@activity('get_folder_metadata').output.childItems`` (see Figure 5).
 
@@ -114,7 +120,10 @@ Loop setup
 Conditional setup
 -----------------
 
-**Step 6.** Create a 'If Conditional' activity. More information on the If Conditional ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-if-condition-activity>`_.
+**Step 6.** Create a 'If Conditional' activity. 
+
+.. note::
+   More information on the If Conditional ADF activity can be found in the `Microsoft documentation <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-if-condition-activity>`_.
   
 **Step 7.** Set the expression in the If Conditional activity (added as dynamic content) as:
 
@@ -140,7 +149,9 @@ This will check if the name of each folder (formatted as a date) is greater (i.e
 
 **Step 9.** Go back to the loop and add another Set Variable activity after the If Conditional activity.
   
-  * Set ``Name = prevFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName`` (see Figure 10). This will update the prevFolder value to the next folder in the set after each loop.
+  * Set ``Name = prevFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName`` (see Figure 10).
+
+This will update the prevFolder value to the next folder in the set after each loop.
 
 .. image:: _static/img/latest_folder/set-variable.png
   :width: 600
