@@ -83,8 +83,8 @@ Here we develop a template solution in Azure Data Factory that will compare the 
 .. note::
    More information on the GetMetadata ADF activity can be found in the `Microsoft documentation <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-get-metadata-activity>`_.
 
-  * Link the 'folder_metadata' dataset to the GetMetadata activity under the dataset tab.
-  * Add a 'Field List' argument as ``Child Items``, this will list each subfolder in the 'folder metadata' dataset (see Figure 4).
+* Link the 'folder_metadata' dataset to the GetMetadata activity under the dataset tab.
+* Add a 'Field List' argument as ``Child Items``, this will list each subfolder in the 'folder metadata' dataset (see Figure 4).
 
 .. image:: _static/img/latest_folder/child-items.png
   :width: 600
@@ -99,7 +99,7 @@ Loop setup
 .. note::
    More information on the ForEach ADF activity can be found in the `Microsoft documentation <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-for-each-activity>`_.
   
-  * In the ForEach activity settings, set 'items' as ``@activity('get_folder_metadata').output.childItems`` (see Figure 5).
+* In the ForEach activity settings, set 'items' as ``@activity('get_folder_metadata').output.childItems`` (see Figure 5).
 
 .. image:: _static/img/latest_folder/foreach-activity.png
   :width: 600
@@ -163,15 +163,18 @@ Output
 
 **Step 10.** Create a 'latest_folder_source' dataset.
 
-  * Set the path to ``@concat('root/directory/', dataset().folderName, '/')``.
+* Set the path to ``@concat('root/directory/', dataset().folderName, '/')``.
 
 **Step 11.** Add a parameter to ‘latest_folder_source’ dataset called folderName.
 
-  * Set the parameter folderName to ``@variable('latestFolder')``.
+* Set the parameter folderName to ``@variable('latestFolder')``.
 
-**Step 12.** Create a 'Copy Data' activity. More information on the Copy Data ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-overview>`_.
+**Step 12.** Create a 'Copy Data' activity. 
 
-  * Set the 'latest_folder_source' dataset as the source and an appropriate dataset as sink where you want to save the latest data (see Figure 10).
+.. note::
+   More information on the Copy Data ADF activity can be found in the `Microsoft documentation <https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-overview>`_.
+
+* Set the 'latest_folder_source' dataset as the source and an appropriate dataset as sink where you want to save the latest data (see Figure 10).
 
 .. image:: _static/img/latest_folder/copy-data.png
   :width: 600
