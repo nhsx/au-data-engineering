@@ -23,8 +23,7 @@ Metadata
     DESCRIPTION:
                     The latest folder lookup ADF utility allows you to find the
                     most recent folder from a directory of time-stamped folders.
-    USAGE:
-                    ...
+    
     CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
     CONTACT:        data@nhsx.nhs.uk
     CREATED:        19 Sept 2021
@@ -161,8 +160,8 @@ This will update the prevFolder value to the next folder in the set after each l
   :alt: Creating a Set Variable activity for the previous folder
 *Figure 9: Creating a Set Variable activity for the previous folder*
 
-Output
-------
+Copy Data setup
+---------------
 
 **Step 10.** Create a 'latest_folder_source' dataset.
 
@@ -184,8 +183,8 @@ Output
   :alt: Creation of a Copy Data activity
 *Figure 10: Creation of a Copy Data activity with the 'latest_folder_source’ dataset set as the source*
 
-JSON Configuration
-------------------
+Data Factory Configuration
+--------------------------
 
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
 

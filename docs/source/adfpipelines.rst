@@ -23,15 +23,12 @@ Metadata
     DESCRIPTION:
                     Pipeline to ingest raw data to Azure Datalake blob storage
                     from a SQL database.
-    USAGE:
-                    ...
+
     CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
     CONTACT:        data@nhsx.nhs.uk
     CREATED:        20 Sept 2021
     VERSION:        0.0.1
     """
-
-The Azure Data Factory json configuration file is `available below <#json-configuration>`_.
 
 Description
 -----------
@@ -78,8 +75,8 @@ Pipeline Configuration
         }
     }
 
-JSON Configuration
-------------------
+Data Factory Configuration
+--------------------------
 
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
 
@@ -105,15 +102,11 @@ Metadata
                     Pipeline to process data from a folder in Azure Datalake 
                     blob storage using a databricks notebook.
 
-    USAGE:
-                    ...
     CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
     CONTACT:        data@nhsx.nhs.uk
     CREATED:        23 Sept 2021
     VERSION:        0.0.1
     """
-
-The Azure Data Factory json configuration file is `available below <#json-configuration>`_.
 
 Description
 -----------
@@ -181,8 +174,8 @@ Python code to sequentially run databricks notebook paths specified in a JSON co
       except Exception as e:
         print(e)
 
-JSON Configuration
-------------------
+Data Factory Configuration
+--------------------------
 
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
 
