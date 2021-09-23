@@ -143,6 +143,8 @@ Pipeline Configuration
         }
     }
 
+Databricks Orchestration
+------------------------
 .. note::
    Alternatively this pipeline can be used to trigger an orchestrator databricks notebook which in turn runs a series of data processing notebooks.
 
@@ -158,17 +160,15 @@ Pipeline Configuration
               {
             "sink_path": "path/to/processed/data",
             "sink_file": "file_1.csv",
-            "databricks_notebook": "/path/to/databricks/orchestrator_notebook"
+            "databricks_notebook": "/path/to/databricks/processing_notebook1"
             },    
               {
             "sink_path": "path/to/processed/data",
             "sink_file": "file_2.csv",
-            "databricks_notebook": "/path/to/databricks/orchestrator_notebook"
+            "databricks_notebook": "/path/to/databricks/processing_notebook2"
             },
         }
     }
-
-In the above example the processing databricks notebook paths are specified in a databricks orchestrator notebook and not in ADF.
 
 Python code to sequentially run databricks notebook paths specified in a JSON config file from a databricks orchestrator notebook.
 
