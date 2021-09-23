@@ -63,8 +63,8 @@ Here we develop a template solution in Azure Data Factory that will compare the 
 
 **Step 1.** Create two pipeline variables: ``latestFolder`` and ``prevFolder`` (see Figure 2).
   
-  * The ``latestFolder`` variable is an empty string to save the latest folder name.
-  * The ``prevFolder`` variable is set to a historical date before you started collecting data for example, ‘1970-01-01’
+* The ``latestFolder`` variable is an empty string to save the latest folder name.
+* The ``prevFolder`` variable is set to a historical date before you started collecting data for example, ‘1970-01-01’
 
 .. image:: _static/img/latest_folder/pipeline-variables.png
   :width: 600
@@ -108,9 +108,9 @@ Loop setup
 
 **Step 5.** Within the 'ForEach' activity create a second get GetMetadata activity (see Figure 6).
   
-  * Create a 'date metadata' dataset with the path set to: ``@concat('root/directory/',dataset().latestDate)``
-  * Set the target dataset to 'date_metadata' and add a parameter to the dataset called ``latestDate``
-  * In the second GetMetadata activity set the parameter ``latestDate`` to ``@item().name``
+* Create a 'date metadata' dataset with the path set to: ``@concat('root/directory/',dataset().latestDate)``
+* Set the target dataset to 'date_metadata' and add a parameter to the dataset called ``latestDate``
+* In the second GetMetadata activity set the parameter ``latestDate`` to ``@item().name``
 
 .. image:: _static/img/latest_folder/second-metadata.png
   :width: 600
@@ -138,9 +138,12 @@ This will check if the name of each folder (formatted as a date) is greater (i.e
   :alt: Setting an expression within an If Conditional activity
 *Figure 7: Setting an expression within an If Conditional activity*
 
-**Step 8.** In the 'If Conditional' activity where ``Case = True`` (i.e.,  if the folder name is greater than the previous folder name) create a new Set Variable activity. More information on the Set Variable ADF activity can be found `here <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-set-variable-activity>`_.
-  
-  * Within the Set Variable activity set ``Name = latestFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName`` (see Figure 8).
+**Step 8.** In the 'If Conditional' activity where ``Case = True`` (i.e.,  if the folder name is greater than the previous folder name) create a new Set Variable activity.
+
+.. note::
+   More information on the Set Variable ADF activity can be found in the `Microsoft documentation <https://docs.microsoft.com/en-us/azure/data-factory/control-flow-set-variable-activity>`_.
+
+* Within the Set Variable activity set ``Name = latestFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName`` (see Figure 8).
 
 .. image:: _static/img/latest_folder/set-variable2.png
   :width: 600
