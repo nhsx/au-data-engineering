@@ -152,7 +152,7 @@ This will check if the name of each folder (formatted as a date) is greater (i.e
 
 **Step 9.** Go back to the loop and add another Set Variable activity after the If Conditional activity.
   
-  * Set ``Name = prevFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName`` (see Figure 10).
+* Set ``Name = prevFolder`` and ``Value = @activity('get_folder_metadata_2').output.itemName`` (see Figure 10).
 
 This will update the prevFolder value to the next folder in the set after each loop.
 
