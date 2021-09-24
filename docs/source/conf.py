@@ -2,6 +2,7 @@ import sphinx_rtd_theme
 from sphinx_rtd_theme import __version__ as theme_version
 from sphinx_rtd_theme import __version_full__ as theme_version_full
 from sphinx.locale import _
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -21,12 +22,12 @@ from sphinx.locale import _
 
 # -- Project information -----------------------------------------------------
 
-project = u'NHSX Data Engineering'
-version = '0.0.1'
-release = '0.0.1'
-copyright = '2021 NHS England and NHS Improvement, MIT Licence'
-author = 'Craig R Shenton, Mattia Ficarelli'
-language = 'en'
+project = u"NHSX Data Engineering"
+version = "0.0.2"
+release = "0.0.2"
+copyright = "2021 NHS England and NHS Improvement, MIT Licence"
+author = "Craig R Shenton, Mattia Ficarelli"
+language = "en"
 
 
 # -- General configuration ---------------------------------------------------
@@ -35,12 +36,12 @@ language = 'en'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.autodoc',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.viewcode',
-    'sphinxcontrib.httpdomain',
-    'sphinx_rtd_theme',
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.viewcode",
+    "sphinxcontrib.httpdomain",
+    "sphinx_rtd_theme",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -54,8 +55,8 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 
 gettext_compact = False
-master_doc = 'index'
-pygments_style = 'default'
+master_doc = "index"
+pygments_style = "default"
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
@@ -75,7 +76,7 @@ html_theme_options = {
     "style_external_links": False,
     "style_nav_header_background": "#2980B9",
     "navigation_depth": 4,
-    'logo_only': False,
+    "logo_only": False,
 }
 
 html_css_files = [
