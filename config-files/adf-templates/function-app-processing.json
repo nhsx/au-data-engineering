@@ -1,0 +1,371 @@
+{
+    "name": "processing_function_app",
+    "properties": {
+        "activities": [
+            {
+                "name": "configFile lookup",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": false,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "configFile",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "configFile": {
+                                "value": "@pipeline().parameters.configFile",
+                                "type": "Expression"
+                            },
+                            "configPath": {
+                                "value": "@pipeline().parameters.configPath",
+                                "type": "Expression"
+                            },
+                            "configFS": {
+                                "value": "@pipeline().parameters.configFS",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "error_notification_1",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "Azure function app",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "error_notification",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": false,
+                    "parameters": {
+                        "subjectLine": {
+                            "value": "@concat('ADF Pipeline Error:', pipeline().DataFactory, ' ', pipeline().Pipeline)",
+                            "type": "Expression"
+                        },
+                        "errorMsg": {
+                            "value": "@concat('Error in activity: ', activity('Azure function app').Error.Message)",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "Azure function app",
+                "description": "Python based function app for data processing.",
+                "type": "AzureFunctionActivity",
+                "dependsOn": [
+                    {
+                        "activity": "set funcApp",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set jsonBody",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "functionName": {
+                        "value": "@variables('funcApp')",
+                        "type": "Expression"
+                    },
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "body": {
+                        "value": "@json(variables('jsonBody'))",
+                        "type": "Expression"
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "function_apps",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "set funcApp",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "funcApp",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.project.func_name",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set jsonBody",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set latestFolder",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "jsonBody",
+                    "value": {
+                        "value": "@concat('\n{\n\"latestFolder\":\"',variables('latestFolder'),'\",\n}\n')",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "latestFolder lookup",
+                "type": "Lookup",
+                "dependsOn": [
+                    {
+                        "activity": "latestFolder API",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "latestFolder_lookup",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "fileSystem": {
+                                "value": "@variables('fileSystem')",
+                                "type": "Expression"
+                            },
+                            "path": {
+                                "value": "@concat('config/latestFolder/',variables('sourcePath'))",
+                                "type": "Expression"
+                            },
+                            "file": "latestFolder_param.json"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "set latestFolder",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "latestFolder lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "latestFolder",
+                    "value": {
+                        "value": "@activity('latestFolder lookup').output.firstRow.latestFolder",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set source path",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sourcePath",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.project.source_path",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set fileSystem",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "fileSystem",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.adl_file_system",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "latestFolder API",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "set source path",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set fileSystem",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "latestFolder_api",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true,
+                    "parameters": {
+                        "configPath": {
+                            "value": "@variables('sourcePath')",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "error_notification",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "latestFolder API",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "error_notification",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": false,
+                    "parameters": {
+                        "subjectLine": {
+                            "value": "@concat('ADF Pipeline Error:', pipeline().DataFactory, ' ', pipeline().Pipeline)",
+                            "type": "Expression"
+                        },
+                        "errorMsg": {
+                            "value": "@concat('Error in activity: ', activity('latestFolder API').Error.Message)",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "configFile": {
+                "type": "string",
+                "defaultValue": "config_debug.json"
+            },
+            "configPath": {
+                "type": "string",
+                "defaultValue": "config/pipelines/debug"
+            },
+            "configFS": {
+                "type": "string",
+                "defaultValue": "datalake-file-system"
+            }
+        },
+        "variables": {
+            "latestFolder": {
+                "type": "String"
+            },
+            "sourcePath": {
+                "type": "String"
+            },
+            "funcApp": {
+                "type": "String"
+            },
+            "jsonBody": {
+                "type": "String"
+            },
+            "fileSystem": {
+                "type": "String"
+            }
+        },
+        "folder": {
+            "name": "templates/processing"
+        },
+        "annotations": []
+    }
+}

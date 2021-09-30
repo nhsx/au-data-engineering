@@ -257,7 +257,7 @@ Pipeline to ingest multiple specified excel file sheets as .csv files to Azure D
  2. Set the Azure Datalake file system.
  3. Set the source path to the folder containing the excel files.
  4. Set the sink path.
- 5. Set an ``array`` variable containing the list of excel metadata.
+ 5. Set an ``array`` variable containing the list of excel file metadata.
  6. ForEach loops over each excel file:
 
     a. Sets the source sheet and sink file.
@@ -607,3 +607,166 @@ Download the Azure Data Factory json configuration file to use this template in 
 
 :download:`processing-databricks.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/databricks-processing.json>`
 
+Azure Function App Processing Pipeline
+======================================
+
+Metadata
+--------
+
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           processing_function_app.json
+    DESCRIPTION:
+                    Pipeline to process data to time-stamped folder in 
+                    Azure Datalake blob storage using an Azure function app.
+
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+Description
+-----------
+
+.. image:: _static/img/pipeline_temps/function_app_processing.png
+  :width: 600
+  :alt: Data processing using an azure function app
+*Figure 1: Data processing using an azure function app*
+
+.. note::
+   This pipeline is designed to allow for raw data to be ingested and then appended onto an existing table with historical data.
+
+Pipeline to process data to time-stamped folder in Azure Datalake blob storage using an Azure function app.
+
+ 1. Lookup the JSON configuration file for this pipeline.
+ 2. Set the source path (of the data to be processed).
+ 3. Set the file system.
+ 4. Set the Azure function app.
+ 5. Use the ‘laterFolder’ utility to find and save the latest folder in the source path.
+ 6. If the ‘laterFolder’ utility fails, the error notification logic app API will notify the specified email address of the error.
+ 7. Lookup the latest folder.
+ 8. Set the latest folder.
+ 9. Set the JSON Body for the Azure function app.
+ 10. Run the Azure function app activity.
+ 11. If the Azure function app activity fails, the error notification logic app API will notify the specified email address of the error.
+
+Within the Azure function app data can be saved to blob storage as either a .csv file or a .parquet file.
+
+Pipeline Configuration
+----------------------
+
+.. code:: python
+
+    {
+      "pipeline": {
+        "name": "processing_function_app",
+        "folder": "templates/processing/function_app",
+        "adl_file_system": "file_system",
+        "project": {
+          "func_name": "azure_func_app",
+          "source_path": "raw/historical/data/source"
+        }
+    }
+
+Data Factory Configuration
+--------------------------
+
+Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+
+:download:`function-app-processing.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/function-app-processing.json>`
+
+Multiple Azure Function Apps Processing Pipeline
+================================================
+
+Metadata
+--------
+
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           processing_function_app.json
+    DESCRIPTION:
+                    Pipeline to process data to time-stamped folder in 
+                    Azure Datalake blob storage using multiple Azure function apps.
+
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+Description
+-----------
+
+.. image:: _static/img/pipeline_temps/multiple_function_app_processing.png
+  :width: 600
+  :alt: Data processing using multiple azure function apps
+*Figure 1: Data processing using multiple azure function apps*
+
+.. image:: _static/img/pipeline_temps/multiple_function_app_processing_2.png
+  :width: 600
+  :alt: ForEach loop activities within pipeline
+*Figure 2: ForEach loop activities within pipeline*
+
+.. note::
+   This pipeline allows for multiple different processed data files to be generated from the same data source during a pipeline run by using multiple function apps running sequentially. 
+
+Pipeline to process data to time-stamped folder in Azure Datalake blob storage using multiple Azure function apps.
+
+ 1. Lookup the JSON configuration file for this pipeline.
+ 2. Set the source path (of the data to be processed).
+ 3. Set the file system.
+ 4. Set the Azure function app.
+ 5. Use the ‘laterFolder’ utility to find and save the latest folder in the source path.
+ 6. If the ‘laterFolder’ utility fails, the error notification logic app API will notify the specified email address of the error.
+ 7. Lookup the latest folder.
+ 8. Set the latest folder.
+ 9. Set the JSON Body for the Azure function app.
+ 10. Set an ``array`` variable containing the list of Azure function apps to be run.
+ 11. ForEach loops over each azure function:
+ 
+    a. Runs the Azure function app activity.
+    b. If the Azure function app activity fails, the error notification logic app API will notify the specified email address of the error.
+
+Within the Azure function app data can be saved to blob storage as either a .csv file or a .parquet file.
+
+Pipeline Configuration
+----------------------
+
+.. code:: python
+
+    {
+      "pipeline": {
+        "name": "processing_function_app",
+        "folder": "templates/processing/function_app",
+        "adl_file_system": "file_system",
+        "project": {
+          "functions": [
+            {"func_name": "azure_func_app_1"},
+            {"func_name": "azure_func_app_2"},
+            {"func_name": "azure_func_app_3"}
+			    ],
+          "source_path": "raw/historical/data/source"
+        }
+    }
+
+Data Factory Configuration
+--------------------------
+
+Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+
+:download:`multiple-function-app-processing.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/multiple-function-app-processing.json>`
