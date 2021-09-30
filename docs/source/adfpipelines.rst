@@ -349,6 +349,70 @@ Download the Azure Data Factory json configuration file to use this template in 
 
 :download:`function-app-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/function-app-ingestion.json>`
 
+SharePoint Ingestion Pipeline
+===============================
+
+Metadata
+--------
+
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           ingestion_sharepoint.json
+    DESCRIPTION:
+                    Pipeline to ingest a specified folder and files from Microsoft
+                    SharePoint to Azure Datalake blob storage.
+
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+Description
+-----------
+
+.. image:: _static/img/pipeline_temps/sharepoint_ingestion.png
+  :width: 600
+  :alt: Data ingestion from microsoft sharepoint
+*Figure 1: Data ingestion from microsoft sharepoint*
+
+Pipeline to ingest a specified folder and files from Microsoft SharePoint to Azure Datalake blob storage.
+
+ 1. Lookup the JSON configuration file for this pipeline.
+ 2. Set the SharePoint file path and SharePoint logic app URL.
+ 3. Call the SharePoint logic app using a webhook that will send back a message once the file transfer is complete.
+ 4. If the logic app fails, the error notification logic app API will notify the specified email address of the error.
+
+Pipeline Configuration
+----------------------
+
+.. code:: python
+
+    {
+      "pipeline": {
+        "name": "ingestion_sharepoint",
+        "folder": "templates/ingestion/sharepoint",
+        "adl_file_system": "file_system",
+        "raw": {
+          "source_path": "...sharepoint/...",
+          "logic_app_url": "https://...logic.azure.com/..."
+        }
+    }
+
+Data Factory Configuration
+--------------------------
+
+Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+
+:download:`sharepoint-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/sharepoint-ingestion.json>`
+
 Databricks Processing Pipeline
 ===============================
 

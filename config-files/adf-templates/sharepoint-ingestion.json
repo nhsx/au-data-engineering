@@ -1,0 +1,179 @@
+{
+    "name": "ingestion_sharepoint",
+    "properties": {
+        "activities": [
+            {
+                "name": "logicApp webhook",
+                "description": "HTTP request trigger for the logic app that copies the ingestion folder in Microsoft SharePoint to ADL2 raw",
+                "type": "WebHook",
+                "dependsOn": [
+                    {
+                        "activity": "set filePath",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set logicappURL",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "url": {
+                        "value": "@variables('logicappURL')",
+                        "type": "Expression"
+                    },
+                    "method": "POST",
+                    "body": {
+                        "value": "@json(concat('\n\n{\n\"CallBackUri\":\"URL\",\n\"configPath\":\"', variables('filePath'),'\"\n}\n\n'))",
+                        "type": "Expression"
+                    },
+                    "timeout": "00:01:00",
+                    "reportStatusOnCallBack": true
+                }
+            },
+            {
+                "name": "set filePath",
+                "description": "",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configPath lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "filePath",
+                    "value": {
+                        "value": "@activity('configPath lookup').output.firstRow.pipeline.raw.source_path",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "error_notification_1",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "logicApp webhook",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "error_notification",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": false,
+                    "parameters": {
+                        "subjectLine": {
+                            "value": "@concat('ADF Pipeline Error:', pipeline().DataFactory, ' ', pipeline().Pipeline)",
+                            "type": "Expression"
+                        },
+                        "errorMsg": {
+                            "value": "@concat('Error in activity: ', activity('logicApp webhook').Error.Message)",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "configPath lookup",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "configFile",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "configFile": {
+                                "value": "@pipeline().parameters.configFile",
+                                "type": "Expression"
+                            },
+                            "configPath": {
+                                "value": "@pipeline().parameters.configPath",
+                                "type": "Expression"
+                            },
+                            "configFS": {
+                                "value": "@pipeline().parameters.configFS",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "set logicappURL",
+                "description": "",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configPath lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "logicappURL",
+                    "value": {
+                        "value": "@activity('configPath lookup').output.firstRow.pipeline.raw.logic_app_url",
+                        "type": "Expression"
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "configPath": {
+                "type": "string"
+            },
+            "configFile": {
+                "type": "string"
+            },
+            "configFS": {
+                "type": "string"
+            }
+        },
+        "variables": {
+            "filePath": {
+                "type": "String"
+            },
+            "logicappURL": {
+                "type": "String"
+            }
+        },
+        "folder": {
+            "name": "templates/ingestion"
+        },
+        "annotations": []
+    }
+}
