@@ -444,7 +444,7 @@ Download the Azure Data Factory json configuration file to use this template in 
 :download:`function-app-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/function-app-ingestion.json>`
 
 SharePoint Ingestion Pipeline
-===============================
+=============================
 
 Metadata
 --------
@@ -698,9 +698,9 @@ Metadata
     # -------------------------------------------------------------------------
 
     """
-    FILE:           processing_function_app.json
+    FILE:           processing_multiple_function_apps.json
     DESCRIPTION:
-                    Pipeline to process data to time-stamped folder in 
+                    Pipeline to process data to time-stamped folders in 
                     Azure Datalake blob storage using multiple Azure function apps.
 
     CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
@@ -770,3 +770,75 @@ Data Factory Configuration
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
 
 :download:`multiple-function-app-processing.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/multiple-function-app-processing.json>`
+
+Copying A .CSV File Processing Pipeline
+=======================================
+
+Metadata
+--------
+
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           processing_csv_file.json
+    DESCRIPTION:
+                    Pipeline to copy a .csv file in a time-stamped folder 
+                    between directories in Azure Datalake blob storage.
+
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+Description
+-----------
+
+.. image:: _static/img/pipeline_temps/csv_file_processing.png
+  :width: 600
+  :alt: Copying a .csv file between Azure Datalake directories
+*Figure 1: Copying a .csv file between Azure Datalake directories*
+
+Pipeline to copy a .csv file in a time-stamped folder between directories in Azure Datalake blob storage
+
+ 1. Lookup the JSON configuration file for this pipeline.
+ 2. Set the Azure Datalake file system
+ 3. Set the source path and source file name.
+ 4. Set the sink path and sink file name.
+ 5. Use the ‘laterFolder’ utility to find and save the latest folder in the source path.
+ 6. If the ‘laterFolder’ utility fails, the error notification logic app API will notify the specified email address of the error.
+ 7. Lookup the latest folder.
+ 8. Set the latest folder.
+ 9. Copy activity copies the .csv file between the Datalake directories.
+ 10. If the copy activity fails, the error notification logic app API will notify the specified email address of the error.
+
+Pipeline Configuration
+----------------------
+
+.. code:: python
+
+    {
+      "pipeline": {
+        "name": "processing_csv_file",
+        "folder": "templates/processing/csv_file",
+        "adl_file_system": "file_system",
+        "project": {
+          "source_path": "raw/",
+          "source_name": "file.csv",
+          "sink_path": "proc/",
+          "sink_name": "file_copy.csv"
+        }
+    }
+
+Data Factory Configuration
+--------------------------
+
+Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+
+:download:`csv-file-processing.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/csv-file-processing.json>`

@@ -1,0 +1,452 @@
+{
+    "name": "processing_csv_file",
+    "properties": {
+        "activities": [
+            {
+                "name": "error_notification_1",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "latestFolder macro",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "error_notification",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": false,
+                    "parameters": {
+                        "subjectLine": {
+                            "value": "@concat('ADF Pipeline Error:', pipeline().DataFactory, ' ', pipeline().Pipeline)",
+                            "type": "Expression"
+                        },
+                        "errorMsg": {
+                            "value": "@concat('Error in activity: ', activity('latestFolder macro').Error.Message)",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "latestFolder macro",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "set fileSystem",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set source file",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set sink file",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "latestFolder_api",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true,
+                    "parameters": {
+                        "configPath": {
+                            "value": "@variables('sourcePath')",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "error_notification_2",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "Copy data between directories",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "error_notification",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": false,
+                    "parameters": {
+                        "subjectLine": {
+                            "value": "@concat('ADF Pipeline Error:', pipeline().DataFactory, ' ', pipeline().Pipeline)",
+                            "type": "Expression"
+                        },
+                        "errorMsg": {
+                            "value": "@concat('Error in activity: ', activity('Copy data between directories').Error.Message)",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "set source path",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sourcePath",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.project.source_path",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "configFile lookup",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": false,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "configFile",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "configFile": {
+                                "value": "@pipeline().parameters.configFile",
+                                "type": "Expression"
+                            },
+                            "configPath": {
+                                "value": "@pipeline().parameters.configPath",
+                                "type": "Expression"
+                            },
+                            "configFS": {
+                                "value": "@pipeline().parameters.configFS",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "latestFolder_lookup",
+                "type": "Lookup",
+                "dependsOn": [
+                    {
+                        "activity": "latestFolder macro",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "latestFolder_lookup",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "fileSystem": {
+                                "value": "@variables('fileSystem')",
+                                "type": "Expression"
+                            },
+                            "path": {
+                                "value": "@concat('config/latestFolder/',variables('sourcePath'))",
+                                "type": "Expression"
+                            },
+                            "file": "latestFolder_param.json"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "set fileSystem",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "fileSystem",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.adl_file_system",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set_latestFolder",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "latestFolder_lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "latestFolder",
+                    "value": {
+                        "value": "@activity('latestFolder_lookup').output.firstRow.latestFolder",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set sink path",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sinkPath",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.project.sink_path",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "Copy data between directories",
+                "type": "Copy",
+                "dependsOn": [
+                    {
+                        "activity": "set_latestFolder",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextReadSettings"
+                        }
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "AzureBlobFSWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSettings",
+                            "quoteAllText": true,
+                            "fileExtension": ".txt"
+                        }
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                            "allowDataTruncation": true,
+                            "treatBooleanAsNumber": false
+                        }
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "source_csv",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "filePath": {
+                                "value": "@concat(variables('sourcePath'),variables('latestFolder'))",
+                                "type": "Expression"
+                            },
+                            "fileName": {
+                                "value": "@variables('sourceFile')",
+                                "type": "Expression"
+                            },
+                            "fileSystem": {
+                                "value": "@variables('fileSystem')",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "sink_csv",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "filePath": {
+                                "value": "@variables('sinkPath')",
+                                "type": "Expression"
+                            },
+                            "fileName": {
+                                "value": "@variables('sinkFile')",
+                                "type": "Expression"
+                            },
+                            "fileSystem": {
+                                "value": "@variables('fileSystem')",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "set sink file",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set sink path",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sinkFile",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.project.sink_file",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set source file",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set source path",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sourceFile",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.project.source_file",
+                        "type": "Expression"
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "configFile": {
+                "type": "string",
+                "defaultValue": "config_debug.json"
+            },
+            "configPath": {
+                "type": "string",
+                "defaultValue": "config/pipelines/debug"
+            },
+            "configFS": {
+                "type": "string",
+                "defaultValue": "datalake-file-system"
+            }
+        },
+        "variables": {
+            "latestFolder": {
+                "type": "String"
+            },
+            "prevFolder": {
+                "type": "String",
+                "defaultValue": "1970-01-01"
+            },
+            "sourcePath": {
+                "type": "String"
+            },
+            "fileSystem": {
+                "type": "String"
+            },
+            "sinkFile": {
+                "type": "String"
+            },
+            "sinkPath": {
+                "type": "String"
+            },
+            "sourceFile": {
+                "type": "String"
+            }
+        },
+        "folder": {
+            "name": "templates/processing"
+        },
+        "annotations": []
+    }
+}
