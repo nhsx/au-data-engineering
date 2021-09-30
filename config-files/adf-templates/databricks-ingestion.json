@@ -1,5 +1,5 @@
 {
-    "name": "processing_databricks",
+    "name": "ingestion_databricks",
     "properties": {
         "activities": [
             {
@@ -91,7 +91,7 @@
                 "typeProperties": {
                     "variableName": "databricksPath",
                     "value": {
-                        "value": "@activity('configFile lookup').output.firstRow.pipeline.project.databricks_orchestrator_notebook",
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.ingestion.databricks_notebook",
                         "type": "Expression"
                     }
                 }
@@ -147,7 +147,7 @@
             }
         },
         "folder": {
-            "name": "templates/processing"
+            "name": "templates/ingestion"
         },
         "annotations": []
     }
