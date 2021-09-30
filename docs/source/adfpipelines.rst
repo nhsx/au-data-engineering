@@ -382,5 +382,5 @@ Data Factory Configuration
 
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
 
-:download:`processing_databricks.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/databricks-processing.json>`
+:download:`processing-databricks.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/databricks-processing.json>`
 
