@@ -82,6 +82,71 @@ Download the Azure Data Factory json configuration file to use this template in 
 
 :download:`sql-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/sql-ingestion.json>`
 
+Databricks Ingestion Pipeline
+===============================
+
+Metadata
+--------
+
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           ingestion_databricks.json
+    DESCRIPTION:
+                    Pipeline to ingest raw data to Azure Datalake blob storage using a 
+                    databricks notebook.
+
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+Description
+-----------
+
+.. image:: _static/img/pipeline_temps/databricks-ingest.png
+  :width: 600
+  :alt: Data ingestion from a SQL database
+*Figure 1: Data ingestion using a databricks notebook*
+
+Pipeline to ingest raw data to Azure Datalake blob storage using a databricks notebook.
+
+ 1. Lookup the JSON configuration file for this pipeline
+ 2. Set the databricks notebook path.
+ 3. Databricks notebook activity runs the databricks notebook specified using an ephemeral job cluster
+ 4. If the databricks notebook activity fails, the error notification logic app API will notify the specified email address of the error.
+
+Within the databricks notebook, using Azure Databricks Functions, data can be saved to blob storage as either a .csv file or a .parquet file.
+
+Pipeline Configuration
+----------------------
+
+.. code:: python
+
+    {
+      "pipeline": {
+        "name": "ingestion_databricks",
+        "folder": "templates/ingestion/databricks",
+        "raw": {
+          "adl_file_system": "file_system",
+          "databricks_notebook": "/path/to/databricks/notebook"
+        }
+    }
+
+Data Factory Configuration
+--------------------------
+
+Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+
+:download:`sql-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/databricks-ingestion.json>`
+
 Databricks Processing Pipeline
 ===============================
 
@@ -116,11 +181,12 @@ Description
   :alt: Data processing using a Databricks notebook
 *Figure 1: Data processing using a Databricks notebook*
 
- 1. Pipeline to process data from a folder in Azure Datalake blob storage using a databricks notebook
- 2. Lookup the JSON configuration file for this pipeline
- 3. Set the databricks notebook path.
- 4. Databricks notebook activity runs the databricks notebook specified using an ephemeral job cluster
- 5. If the databricks notebook activity fails, the error notification logic app API will notify the specified email address of the error.
+Pipeline to process data from a folder in Azure Datalake blob storage using a databricks notebook
+
+ 1. Lookup the JSON configuration file for this pipeline
+ 2. Set the databricks notebook path.
+ 3. Databricks notebook activity runs the databricks notebook specified using an ephemeral job cluster
+ 4. If the databricks notebook activity fails, the error notification logic app API will notify the specified email address of the error.
 
 Pipeline Configuration
 ----------------------
