@@ -113,7 +113,7 @@ Description
 
 .. image:: _static/img/pipeline_temps/databricks/databricks.png
   :width: 600
-  :alt: Data ingestion from a SQL database
+  :alt: Data ingestion using a databricks notebook
 *Figure 1: Data ingestion using a databricks notebook*
 
 Pipeline to ingest raw data to Azure Datalake blob storage using a databricks notebook.
@@ -134,8 +134,8 @@ Pipeline Configuration
       "pipeline": {
         "name": "ingestion_databricks",
         "folder": "templates/ingestion/databricks",
+        "adl_file_system": "file_system",
         "raw": {
-          "adl_file_system": "file_system",
           "databricks_notebook": "/path/to/databricks/notebook"
         }
     }
@@ -162,9 +162,10 @@ Metadata
     # -------------------------------------------------------------------------
 
     """
-    FILE:           ingestion_databricks.json
+    FILE:           ingestion_excel_sheet.json
     DESCRIPTION:
-                    Pipeline to ingest a specified excel file sheet, as a .csv file, to Azure Datalake blob storage.
+                    Pipeline to ingest a specified excel file sheet, as a .csv file, to 
+                    Azure Datalake blob storage.
 
     CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
     CONTACT:        data@nhsx.nhs.uk
@@ -177,12 +178,12 @@ Description
 
 .. image:: _static/img/pipeline_temps/excel_sheet_ingestion.png
   :width: 600
-  :alt: Data ingestion from a SQL database
+  :alt: Data ingestion of an excel file sheet
 *Figure 1: Data ingestion of an excel file sheet*
 
 Pipeline to ingest a specified excel file sheet, as a .csv file, to Azure Datalake blob storage.
 
- 1. Lookup the JSON configuration file for this pipeline
+ 1. Lookup the JSON configuration file for this pipeline.
  2. Set the Azure Datalake file system.
  3. Set the source file path, file name, and excel sheet name.
  4. Set the sink file path and file name.
@@ -198,8 +199,8 @@ Pipeline Configuration
       "pipeline": {
         "name": "ingestion_excel_sheet",
         "folder": "templates/ingestion/excel_sheet",
+        "adl_file_system": "file_system",
         "raw": {
-          "adl_file_system": "file_system",
           "source_path": "raw/",
           "source_file": "file.xlsx",
           "source_sheet": "table_1",
@@ -214,6 +215,74 @@ Data Factory Configuration
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
 
 :download:`excel-sheet-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/excel-sheet-ingestion.json>`
+
+Web URL Data Ingestion Pipeline
+===============================
+
+Metadata
+--------
+
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           ingestion_web_url.json
+    DESCRIPTION:
+                    Pipeline to ingest data from a URL as a .csv file to 
+                    Azure Datalake blob storage.
+
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+Description
+-----------
+
+.. image:: _static/img/pipeline_temps/web_url_ingestion.png
+  :width: 600
+  :alt: Data ingestion from a web URL
+*Figure 1: Data ingestion from a web URL*
+
+Pipeline to ingest data from a web URL as a .csv file to Azure Datalake blob storage.
+
+ 1. Lookup the JSON configuration file for this pipeline.
+ 2. Set the source URL.
+ 3. Set the file system.
+ 4. Set the sink path.
+ 5. Set the sink file.
+ 6. Copy activity copies the data returned from the URL as a .csv file. 
+ 7. If the copy activity fails, the error notification logic app API will notify the specified email address of the error.
+
+Pipeline Configuration
+----------------------
+
+.. code:: python
+
+    {
+      "pipeline": {
+        "name": "ingestion_web_url",
+        "folder": "templates/ingestion/web_url",
+        "adl_file_system": "file_system",
+        "raw": {
+          "source_url": "https://www.sourcedata.com",
+          "sink_path": "raw/path/to/data",
+          "sink_file": "table_1.csv"
+        }
+    }
+
+Data Factory Configuration
+--------------------------
+
+Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+
+:download:`web-url-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/web-url-ingestion.json>`
 
 Databricks Processing Pipeline
 ===============================
@@ -313,5 +382,5 @@ Data Factory Configuration
 
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
 
-:download:`processing_databricks.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/databricks-processing.json>`
+:download:`processing-databricks.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/databricks-processing.json>`
 
