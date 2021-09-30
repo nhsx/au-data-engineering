@@ -209,12 +209,106 @@ Pipeline Configuration
         }
     }
 
+.. note::
+   Alternatively this a variation ogf this pipeline can be used to ingest multiple excel file sheets to a set of .csv files in Azure Datalake blob storage.
+
+Multiple Excel Sheet Ingestion Pipeline
+=======================================
+
+Metadata
+--------
+
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           ingestion_multiple_excel_sheets.json
+    DESCRIPTION:
+                    Pipeline to ingest multiple specified excel file sheets as .csv files 
+                    to Azure Datalake blob storage.
+
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+Description
+-----------
+
+.. image:: _static/img/pipeline_temps/multiple_excel_sheet_ingestion.png
+  :width: 600
+  :alt: Data ingestion of multiple excel file sheets
+*Figure 1: Data ingestion of multiple excel file sheets*
+
+.. image:: _static/img/pipeline_temps/multiple_excel_sheet_ingestion_2.png
+  :width: 600
+  :alt: ForEach loop activities within pipeline
+*Figure 2: ForEach loop activities within pipeline*
+
+Pipeline to ingest multiple specified excel file sheets as .csv files to Azure Datalake blob storage.
+
+ 1. Looks up the JSON configuration file for this pipeline.
+ 2. Set the Azure Datalake file system.
+ 3. Set the source path to the folder containing the excel files.
+ 4. Set the sink path.
+ 5. Set an ``array`` variable containing the list of excel metadata.
+ 6. ForEach loops over each excel file:
+
+    a. Sets the source sheet and sink file.
+    b. Copy activity ingests the excel sheet data and saves it as a .csv file.
+    c. If the copy activity fails, the error notification logic app API will notify the specified email address of the error.
+
+.. note::
+   Copy activity has ‘File path type’ set to wildcard and the file name regex as ‘*.xlsx’ (excel) (see Figure 3).
+
+.. image:: _static/img/pipeline_temps/multiple_excel_sheet_ingestion_3.png
+  :width: 600
+  :alt: Copy activity wildcard setup
+*Figure 3: Copy activity wildcard setup*
+
+Pipeline Configuration
+----------------------
+
+.. code:: python
+
+    {
+      "pipeline": {
+        "name": "ingestion_multiple_excel_sheets",
+        "folder": "templates/ingestion/multiple_excel_sheets",
+        "adl_file_system": "file_system",
+        "raw": {
+          "source_path": "ingestion/",
+          "sink_path": "raw/path/to/data",
+          "sink_path": "processed/"
+          "excel":[
+				{
+					"sink_file": "table_1.csv",
+					"source_sheet": "sheet_1"
+				},
+				{
+					"sink_file": "table_2.csv",
+					"source_sheet": "sheet_2"
+				},
+				{
+					"sink_file": "table_3.csv",
+					"source_sheet": "sheet_3"
+				}
+			]
+    }
+  }
+
 Data Factory Configuration
 --------------------------
 
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
 
-:download:`excel-sheet-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/excel-sheet-ingestion.json>`
+:download:`multiple-excel-sheet-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/multiple-excel-sheet-ingestion.json>`
 
 Web URL Data Ingestion Pipeline
 ===============================
@@ -285,7 +379,7 @@ Download the Azure Data Factory json configuration file to use this template in 
 :download:`web-url-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/web-url-ingestion.json>`
 
 Azure Function App Ingestion Pipeline
-===============================
+=====================================
 
 Metadata
 --------
