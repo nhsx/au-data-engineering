@@ -284,6 +284,71 @@ Download the Azure Data Factory json configuration file to use this template in 
 
 :download:`web-url-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/web-url-ingestion.json>`
 
+Azure Function App Ingestion Pipeline
+===============================
+
+Metadata
+--------
+
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           ingestion_web_url.json
+    DESCRIPTION:
+                    Pipeline to ingest raw data to Azure Datalake blob storage
+                    using an Azure function app.
+
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+Description
+-----------
+
+.. image:: _static/img/pipeline_temps/function_app_ingestion.png
+  :width: 600
+  :alt: Data ingestion using an azure function app
+*Figure 1: Data ingestion using an azure function app*
+
+Pipeline to ingest raw to Azure Datalake blob storage using an Azure function app.
+
+ 1. Lookup the JSON configuration file for this pipeline.
+ 2. Set the Azure function app.
+ 3. Azure function app activity triggers the specified function app.
+ 4. If the Azure function app activity fails, the error notification logic app API will notify the specified email address of the error.
+
+Within the Azure function app data can be saved to blob storage as either a .csv file or a .parquet file.
+
+Pipeline Configuration
+----------------------
+
+.. code:: python
+
+    {
+      "pipeline": {
+        "name": "ingestion_azure_function_app",
+        "folder": "templates/ingestion/azure_function_app",
+        "adl_file_system": "file_system",
+        "raw": {
+          "func_name": "azure_func_app"
+        }
+    }
+
+Data Factory Configuration
+--------------------------
+
+Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+
+:download:`function-app-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/function-app-ingestion.json>`
+
 Databricks Processing Pipeline
 ===============================
 

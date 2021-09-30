@@ -1,0 +1,170 @@
+{
+    "name": "ingestion_function_app",
+    "properties": {
+        "activities": [
+            {
+                "name": "configFile lookup",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": false,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "configFile",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "configFile": {
+                                "value": "@pipeline().parameters.configFile",
+                                "type": "Expression"
+                            },
+                            "configPath": {
+                                "value": "@pipeline().parameters.configPath",
+                                "type": "Expression"
+                            },
+                            "configFS": {
+                                "value": "@pipeline().parameters.configFS",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "error_notification_1",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "Azure function app",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "error_notification",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": false,
+                    "parameters": {
+                        "subjectLine": {
+                            "value": "@concat('ADF Pipeline Error:', pipeline().DataFactory, ' ', pipeline().Pipeline)",
+                            "type": "Expression"
+                        },
+                        "errorMsg": {
+                            "value": "@concat('Error in activity: ', activity('Azure function app').Error.Message)",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "set funcApp",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "funcApp",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.ingestion.func_name",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "Azure function app",
+                "type": "AzureFunctionActivity",
+                "dependsOn": [
+                    {
+                        "activity": "set funcApp",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "functionName": {
+                        "value": "@variables('funcApp')",
+                        "type": "Expression"
+                    },
+                    "method": "POST",
+                    "body": {
+                        "body": ""
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "azure_function_apps",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ],
+        "parameters": {
+            "configFile": {
+                "type": "string",
+                "defaultValue": "config_debug.json"
+            },
+            "configPath": {
+                "type": "string",
+                "defaultValue": "config/pipelines/debug"
+            },
+            "configFS": {
+                "type": "string",
+                "defaultValue": "datalake-file-system"
+            }
+        },
+        "variables": {
+            "latestFolder": {
+                "type": "String"
+            },
+            "sourcePath": {
+                "type": "String"
+            },
+            "funcApp": {
+                "type": "String"
+            },
+            "jsonBody": {
+                "type": "String"
+            },
+            "fileSystem": {
+                "type": "String"
+            }
+        },
+        "folder": {
+            "name": "templates/ingestion"
+        },
+        "annotations": []
+    }
+}
