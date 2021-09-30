@@ -299,7 +299,7 @@ Metadata
     # -------------------------------------------------------------------------
 
     """
-    FILE:           ingestion_web_url.json
+    FILE:           ingestion_function_app.json
     DESCRIPTION:
                     Pipeline to ingest raw data to Azure Datalake blob storage
                     using an Azure function app.
@@ -334,8 +334,8 @@ Pipeline Configuration
 
     {
       "pipeline": {
-        "name": "ingestion_azure_function_app",
-        "folder": "templates/ingestion/azure_function_app",
+        "name": "ingestion_function_app",
+        "folder": "templates/ingestion/function_app",
         "adl_file_system": "file_system",
         "raw": {
           "func_name": "azure_func_app"
