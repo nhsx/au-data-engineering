@@ -805,7 +805,7 @@ Description
   :alt: Copying a .csv file between Azure Datalake directories
 *Figure 1: Copying a .csv file between Azure Datalake directories*
 
-Pipeline to copy a .csv file in a time-stamped folder between directories in Azure Datalake blob storage
+Pipeline to copy a .csv file in a time-stamped folder between directories in Azure Datalake blob storage.
 
  1. Lookup the JSON configuration file for this pipeline.
  2. Set the Azure Datalake file system
@@ -842,3 +842,175 @@ Data Factory Configuration
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
 
 :download:`csv-file-processing.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/csv-file-processing.json>`
+
+Data Staging To A Table In A SQL Database Pipeline
+==================================================
+
+Metadata
+--------
+
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           staging_sql_database.json
+    DESCRIPTION:
+                    Pipeline to stage data from a time-stamped folder in 
+                    Azure Datalake blob storage to a table in an Azure SQL database. 
+
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+Description
+-----------
+
+.. image:: _static/img/pipeline_temps/sql_database_staging.png
+  :width: 600
+  :alt: Data staging to a table in an Azure SQL database
+*Figure 1: Data staging to a table in an Azure SQL database*
+
+Pipeline to stage data (.csv file) from a time-stamped folder in Azure Datalake blob storage to a table in an Azure SQL database. 
+
+ 1. Lookup the JSON configuration file for this pipeline.
+ 2. Set the source path (of data to be staged).
+ 3. Set the source file.
+ 4. Set the file system. 
+ 5. Set the sink table (target table in the SQL database).
+ 6. Set the stored procedure (truncates data in the target table in the SQL database).
+ 7. Run the stored procedure activity. The stored procedure also sets the data type of each column in the database table. 
+ 8. Use the ‘laterFolder’ utility to find and save the latest folder in the source path.
+ 9. If the ‘laterFolder’ utility fails, the error notification logic app API will notify the specified email address of the error.
+ 10. Lookup the latest folder.
+ 11. Set the latest folder.
+ 12. Run the copy activity which stages data from a .csv file in Azure Datalake blob storage to an empty table in an Azure SQL database.
+ 13. If the Azure copy activity fails, the error notification logic app API will notify the specified email address of the error.
+
+Pipeline Configuration
+----------------------
+
+.. code:: python
+
+    {
+      "pipeline": {
+        "name": "staging_sql_database",
+        "folder": "templates/staging/sql_database",
+        "adl_file_system": "file_system",
+        "staging": {
+            "stored_procedure":"[dbo].[sql_stored_procedure_table_1]",
+            "source_path":"proc/projects/path/to/processed/data/",
+            "source_file":"table_1.csv",
+            "sink_table":"sql_table_1"
+        }
+    }
+
+Data Factory Configuration
+--------------------------
+
+Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+
+:download:`sql-database-staging.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/staging-sql-database.json>`
+
+Data Staging To Multiple Tables In A SQL Database Pipeline
+=========================================================
+
+Metadata
+--------
+
+.. code:: python
+
+    # -------------------------------------------------------------------------
+    # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
+    # Licensed under the MIT License. See license.txt in the project root for
+    # license information.
+    # -------------------------------------------------------------------------
+
+    """
+    FILE:           multiple_tables_staging_sql_database.json
+    DESCRIPTION:
+                    Pipeline to stage data from a time-stamped folders in 
+                    Azure Datalake blob storage to multiple tables in an Azure SQL database. 
+
+    CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
+    CONTACT:        data@nhsx.nhs.uk
+    CREATED:        20 Sept 2021
+    VERSION:        0.0.1
+    """
+
+Description
+-----------
+
+.. image:: _static/img/pipeline_temps/multiple_table_sql_database_staging.png
+  :width: 600
+  :alt: Data staging to multiple tables in an Azure SQL database
+*Figure 1: Data staging to multiple tables in an Azure SQL database*
+
+.. image:: _static/img/pipeline_temps/multiple_table_sql_database_staging_2.png
+  :width: 600
+  :alt: ForEach loop activities within pipeline
+*Figure 2: ForEach loop activities within pipeline*
+
+Pipeline to stage data (.csv files) from a time-stamped folders in Azure Datalake blob storage to multiple tables in an Azure SQL database.  
+
+ 1. Lookup the JSON configuration file for this pipeline.
+ 2. Set the file system. 
+ 3. Set an ``array`` variable containing the list of stored procedures and tables to which processed data is to be staged.
+ 4. For each element in the list the ForEach loop:
+ 
+    a. Sets the source path (of data to be staged).
+    b. Sets the source file.
+    c. Uses the ‘laterFolder’ utility to find and save the latest folder in the source path.
+    d. Lookups the latest folder.
+    e. Sets the latest folder.
+    f. Sets the sink table (target table in the SQL database).
+    g. Sets the stored procedure (truncates data in the target table in the SQL database).
+    h. Runs the stored procedure activity. The stored procedure also sets the data type of each column in the database table. 
+    i. Runs the copy activity which stages data from a .csv file in azure Datalake blob storage to an empty table in an Azure SQL database.
+    j. If the Azure copy activity fails, the error notification logic app API will notify the specified email address of the error.
+
+Pipeline Configuration
+----------------------
+
+.. code:: python
+
+    {
+      "pipeline": {
+        "name": "multiple_tables_staging_sql_database",
+        "folder": "templates/staging/multiple_tables_sql_database",
+        "adl_file_system": "file_system",
+        "staging": [
+              {
+                "stored_procedure":"[dbo].[sql_stored_procedure_table_1]",
+                "source_path":"proc/projects/path/to/processed/data/",
+                "source_file":"table_1.csv",
+                "sink_table":"sql_table_1"
+              },
+              {
+                "stored_procedure":"[dbo].[sql_stored_procedure_table_2]",
+                "source_path":"proc/projects/path/to/processed/data2/",
+                "source_file":"table_2.csv",
+                "sink_table":"sql_table_2"
+              },
+              {
+                "stored_procedure":"[dbo].[sql_stored_procedure_table_3]",
+                "source_path":"proc/projects/path/to/processed/data3/",
+                "source_file":"table_3.csv",
+                "sink_table":"sql_table_3"
+              }
+          ]
+    }
+
+Data Factory Configuration
+--------------------------
+
+Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+
+:download:`multiple-tables-sql-database-staging.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/multiple-tables-sql-database-staging.json>`
+
