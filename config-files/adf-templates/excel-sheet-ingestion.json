@@ -114,7 +114,7 @@
             },
             {
                 "name": "copy excel sheet to csv",
-                "description": "Copies the current file from ADL2 raw (sharepoint) to ADL2 raw time-stamped folder (YYYY-MM-DD)",
+                "description": "Copies the current file from ADL2 to ADL2 raw in a time-stamped folder (YYYY-MM-DD)",
                 "type": "Copy",
                 "dependsOn": [
                     {
