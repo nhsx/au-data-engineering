@@ -1,0 +1,351 @@
+{
+    "name": "ingestion_excel_sheet",
+    "properties": {
+        "activities": [
+            {
+                "name": "set source path",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set fileSystem",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sourcePath",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.source_path",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "configFile lookup",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": false,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "configFile",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "configFile": {
+                                "value": "@pipeline().parameters.configFile",
+                                "type": "Expression"
+                            },
+                            "configPath": {
+                                "value": "@pipeline().parameters.configPath",
+                                "type": "Expression"
+                            },
+                            "configFS": {
+                                "value": "@pipeline().parameters.configFS",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "set fileSystem",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "fileSystem",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.adl_file_system",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set sink file",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set source file",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set source sheet",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sinkFile",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.sink_file",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "copy excel sheet to csv",
+                "description": "Copies the current file from ADL2 to ADL2 raw in a time-stamped folder (YYYY-MM-DD)",
+                "type": "Copy",
+                "dependsOn": [
+                    {
+                        "activity": "set sink path",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set sink file",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "ExcelSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": false,
+                            "enablePartitionDiscovery": false
+                        }
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "AzureBlobFSWriteSettings",
+                            "copyBehavior": "MergeFiles"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSettings",
+                            "quoteAllText": true,
+                            "fileExtension": ".txt"
+                        }
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                            "allowDataTruncation": true,
+                            "treatBooleanAsNumber": false
+                        }
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "source_excel_sheet",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "sheetName": {
+                                "value": "@variables('sourceSheet')",
+                                "type": "Expression"
+                            },
+                            "fileSystem": {
+                                "value": "@variables('fileSystem')",
+                                "type": "Expression"
+                            },
+                            "filePath": {
+                                "value": "@concat(variables('sourcePath'),variables('latestFolder'))",
+                                "type": "Expression"
+                            },
+                            "fileName": {
+                                "value": "@variables('sourceFile')",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "sink_csv",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "filePath": {
+                                "value": "@variables('sinkPath')",
+                                "type": "Expression"
+                            },
+                            "fileName": {
+                                "value": "@variables('sinkFile')",
+                                "type": "Expression"
+                            },
+                            "fileSystem": {
+                                "value": "@variables('fileSystem')",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "error_notification_1",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "copy excel sheet to csv",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "error_notification",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": false,
+                    "parameters": {
+                        "subjectLine": {
+                            "value": "@concat('ADF Pipeline Error:', pipeline().DataFactory, ' ', pipeline().Pipeline)",
+                            "type": "Expression"
+                        },
+                        "errorMsg": {
+                            "value": "@concat('Error in activity: ', activity('copy excel sheet to csv').Error.Message)",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "set source sheet",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set fileSystem",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sourceSheet",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.source_sheet",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set sink path",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set source path",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sinkPath",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.sink_path",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "set source file",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "set fileSystem",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "sourceFile",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.source_file",
+                        "type": "Expression"
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "configFile": {
+                "type": "string"
+            },
+            "configPath": {
+                "type": "string"
+            },
+            "configFS": {
+                "type": "string"
+            }
+        },
+        "variables": {
+            "latestFolder": {
+                "type": "String"
+            },
+            "prevFolder": {
+                "type": "String",
+                "defaultValue": "1970-01-01"
+            },
+            "sourcePath": {
+                "type": "String"
+            },
+            "fileSystem": {
+                "type": "String"
+            },
+            "sourceFile": {
+                "type": "String"
+            },
+            "sinkPath": {
+                "type": "String"
+            },
+            "sourceSheet": {
+                "type": "String"
+            },
+            "sinkFile": {
+                "type": "String"
+            }
+        },
+        "folder": {
+            "name": "templates/ingestion"
+        },
+        "annotations": []
+    }
+}
