@@ -209,6 +209,13 @@ Pipeline Configuration
         }
     }
 
+Data Factory Configuration
+--------------------------
+
+Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+
+:download:`excel-sheet-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/excel-sheet-ingestion.json>`
+
 .. note::
    Alternatively this a variation ogf this pipeline can be used to ingest multiple excel file sheets to a set of .csv files in Azure Datalake blob storage.
 
