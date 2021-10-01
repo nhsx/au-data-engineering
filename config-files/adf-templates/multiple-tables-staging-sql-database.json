@@ -94,7 +94,7 @@
                     "activities": [
                         {
                             "name": "stored procedure",
-                            "description": "Pre-copy script, saved as a stored procedure in the \"staging\" database, clears the Azure SQL database table and changes the column datatype to correct one.",
+                            "description": "Pre-copy script, saved as a stored procedure in the \"staging\" database.",
                             "type": "SqlServerStoredProcedure",
                             "dependsOn": [
                                 {
@@ -125,7 +125,7 @@
                         },
                         {
                             "name": "Copy data to Azure SQL database",
-                            "description": "Copies .csv data from an Azure Datalake folder to a table in an Azure SQL database.",
+                            "description": "Copies data from an Azure Datalake folder to a table in an Azure SQL database.",
                             "type": "Copy",
                             "dependsOn": [
                                 {

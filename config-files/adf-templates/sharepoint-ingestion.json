@@ -4,7 +4,7 @@
         "activities": [
             {
                 "name": "logicApp webhook",
-                "description": "HTTP request trigger for the logic app that copies the ingestion folder in Microsoft SharePoint to ADL2 raw",
+                "description": "HTTP request trigger for a logic app that copies files in a Microsoft SharePoint folder to ADL2 blog storage.",
                 "type": "WebHook",
                 "dependsOn": [
                     {

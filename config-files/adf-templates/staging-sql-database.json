@@ -68,7 +68,7 @@
             },
             {
                 "name": "stored procedure",
-                "description": "Pre-copy script, saved as a stored procedure in the \"staging\" database, clears the Azure SQL database table and changes the column datatype to correct one.",
+                "description": "Pre-copy script, saved as a stored procedure in the \"staging\" database.",
                 "type": "SqlServerStoredProcedure",
                 "dependsOn": [
                     {
