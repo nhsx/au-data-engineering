@@ -776,7 +776,7 @@ Download the Azure Data Factory `.json` configuration file to use this template 
 
 :download:`multiple-function-app-processing.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/multiple-function-app-processing.json>`
 
-Copying A .CSV File Processing Pipeline
+Copy File Processing Pipeline
 =======================================
 
 Metadata
@@ -848,8 +848,8 @@ Download the Azure Data Factory `.json` configuration file to use this template 
 
 :download:`csv-file-processing.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/csv-file-processing.json>`
 
-Data Staging To A Table In A SQL Database Pipeline
-==================================================
+SQL Table Staging Pipeline
+=============================
 
 Metadata
 --------
@@ -923,8 +923,8 @@ Download the Azure Data Factory json configuration file to use this template in 
 
 :download:`sql-database-staging.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/staging-sql-database.json>`
 
-Data Staging To Multiple Tables In A SQL Database Pipeline
-=========================================================
+Multiple SQL Table Staging Pipeline
+===================================
 
 Metadata
 --------
