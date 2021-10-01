@@ -40,7 +40,7 @@ Description
 
 Pipeline to ingest raw data to Azure Datalake blob storage from a SQL database.
 
- 1. Looks up the JSON configuration file for this pipeline
+ 1. Looks up the `.json` configuration file for this pipeline
  2. Source:
 
     a. Sets the source database owner (dbo)
@@ -53,7 +53,7 @@ Pipeline to ingest raw data to Azure Datalake blob storage from a SQL database.
     b. Sets the sink path
     c. Sets the sink file
 
- 4. Copy activity copies the data returned from the SQL query as either a .csv file or a .parquet file.
+ 4. Copy activity copies the data returned from the SQL query as either a `.csv` file or a `.parquet` file.
  5. If the copy activity fails, the error notification logic app API will notify the specified email address of the error
 
 Pipeline Configuration
@@ -99,8 +99,8 @@ Metadata
     """
     FILE:           ingestion_databricks.json
     DESCRIPTION:
-                    Pipeline to ingest raw data to Azure Datalake blob storage using a 
-                    databricks notebook.
+                    Pipeline to ingest raw data to Azure Datalake blob storage
+                    using a databricks notebook.
 
     CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
     CONTACT:        data@nhsx.nhs.uk
@@ -118,7 +118,7 @@ Description
 
 Pipeline to ingest raw data to Azure Datalake blob storage using a databricks notebook.
 
- 1. Lookup the JSON configuration file for this pipeline.
+ 1. Lookup the `.json` configuration file for this pipeline.
  2. Set the databricks notebook path.
  3. Databricks notebook activity runs the databricks notebook specified using an ephemeral job cluster.
  4. If the databricks notebook activity fails, the error notification logic app API will notify the specified email address of the error.
@@ -164,8 +164,8 @@ Metadata
     """
     FILE:           ingestion_excel_sheet.json
     DESCRIPTION:
-                    Pipeline to ingest a specified excel file sheet, as a .csv file, to 
-                    Azure Datalake blob storage.
+                    Pipeline to ingest a specified excel file sheet, as a .csv
+                    file, to Azure Datalake blob storage.
 
     CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
     CONTACT:        data@nhsx.nhs.uk
@@ -181,13 +181,13 @@ Description
   :alt: Data ingestion of an excel file sheet
 *Figure 1: Data ingestion of an excel file sheet*
 
-Pipeline to ingest a specified excel file sheet, as a .csv file, to Azure Datalake blob storage.
+Pipeline to ingest a specified excel file sheet, as a `.csv` file, to Azure Datalake blob storage.
 
- 1. Lookup the JSON configuration file for this pipeline.
+ 1. Lookup the `.json` configuration file for this pipeline.
  2. Set the Azure Datalake file system.
  3. Set the source file path, file name, and excel sheet name.
  4. Set the sink file path and file name.
- 5. Copy activity ingests the excel sheet data to a .csv file.
+ 5. Copy activity ingests the excel sheet data to a `.csv` file.
  6. If the copy activity fails, the error notification logic app API will notify the specified email address of the error.
 
 Pipeline Configuration
@@ -211,13 +211,11 @@ Pipeline Configuration
 
 Data Factory Configuration
 --------------------------
-
 Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
-
 :download:`excel-sheet-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/excel-sheet-ingestion.json>`
 
 .. note::
-   Alternatively this a variation ogf this pipeline can be used to ingest multiple excel file sheets to a set of .csv files in Azure Datalake blob storage.
+   Alternatively this a variation of this pipeline can be used to ingest multiple excel file sheets to a set of `.csv` files in Azure Datalake blob storage.
 
 Multiple Excel Sheet Ingestion Pipeline
 =======================================
@@ -258,21 +256,21 @@ Description
   :alt: ForEach loop activities within pipeline
 *Figure 2: ForEach loop activities within pipeline*
 
-Pipeline to ingest multiple specified excel file sheets as .csv files to Azure Datalake blob storage.
+Pipeline to ingest multiple specified excel file sheets as `.csv` files to Azure Datalake blob storage.
 
- 1. Looks up the JSON configuration file for this pipeline.
+ 1. Looks up the `.json` configuration file for this pipeline.
  2. Set the Azure Datalake file system.
  3. Set the source path to the folder containing the excel files.
  4. Set the sink path.
- 5. Set an ``array`` variable containing the list of excel file metadata.
+ 5. Set an `array` variable containing the list of excel file metadata.
  6. ForEach loops over each excel file:
 
     a. Sets the source sheet and sink file.
-    b. Copy activity ingests the excel sheet data and saves it as a .csv file.
+    b. Copy activity ingests the excel sheet data and saves it as a `.csv` file.
     c. If the copy activity fails, the error notification logic app API will notify the specified email address of the error.
 
 .. note::
-   Copy activity has ‘File path type’ set to wildcard and the file name regex as ‘*.xlsx’ (excel) (see Figure 3).
+   Copy activity has ‘File path type’ set to wildcard and the file name regex as `*.xlsx` (excel) (see Figure 3).
 
 .. image:: _static/img/pipeline_temps/multiple_excel_sheet_ingestion_3.png
   :width: 600
@@ -284,31 +282,31 @@ Pipeline Configuration
 
 .. code:: python
 
-    {
-      "pipeline": {
-        "name": "ingestion_multiple_excel_sheets",
-        "folder": "templates/ingestion/multiple_excel_sheets",
-        "adl_file_system": "file_system",
-        "raw": {
-          "source_path": "ingestion/",
-          "sink_path": "raw/path/to/data",
-          "sink_path": "processed/"
-          "excel":[
-				{
-					"sink_file": "table_1.csv",
-					"source_sheet": "sheet_1"
-				},
-				{
-					"sink_file": "table_2.csv",
-					"source_sheet": "sheet_2"
-				},
-				{
-					"sink_file": "table_3.csv",
-					"source_sheet": "sheet_3"
-				}
-			]
-    }
+  {
+    "pipeline": {
+      "name": "ingestion_multiple_excel_sheets",
+      "folder": "templates/ingestion/multiple_excel_sheets",
+      "adl_file_system": "file_system",
+      "raw": {
+        "source_path": "ingestion/",
+        "sink_path": "raw/path/to/data",
+        "sink_path": "processed/"
+        "excel":[
+      {
+        "sink_file": "table_1.csv",
+        "source_sheet": "sheet_1"
+      },
+      {
+        "sink_file": "table_2.csv",
+        "source_sheet": "sheet_2"
+      },
+      {
+        "sink_file": "table_3.csv",
+        "source_sheet": "sheet_3"
+      }
+    ]
   }
+}
 
 Data Factory Configuration
 --------------------------
@@ -351,14 +349,14 @@ Description
   :alt: Data ingestion from a web URL
 *Figure 1: Data ingestion from a web URL*
 
-Pipeline to ingest data from a web URL as a .csv file to Azure Datalake blob storage.
+Pipeline to ingest data from a web URL as a `.csv` file to Azure Datalake blob storage.
 
  1. Lookup the JSON configuration file for this pipeline.
  2. Set the source URL.
  3. Set the file system.
  4. Set the sink path.
  5. Set the sink file.
- 6. Copy activity copies the data returned from the URL as a .csv file. 
+ 6. Copy activity copies the data returned from the URL as a `.csv` file. 
  7. If the copy activity fails, the error notification logic app API will notify the specified email address of the error.
 
 Pipeline Configuration
@@ -421,12 +419,12 @@ Description
 
 Pipeline to ingest raw to Azure Datalake blob storage using an Azure function app.
 
- 1. Lookup the JSON configuration file for this pipeline.
+ 1. Lookup the `.json` configuration file for this pipeline.
  2. Set the Azure function app.
  3. Azure function app activity triggers the specified function app.
  4. If the Azure function app activity fails, the error notification logic app API will notify the specified email address of the error.
 
-Within the Azure function app data can be saved to blob storage as either a .csv file or a .parquet file.
+Within the Azure function app data can be saved to blob storage as either a `.csv` file or a `.parquet` file.
 
 Pipeline Configuration
 ----------------------
@@ -486,7 +484,7 @@ Description
 
 Pipeline to ingest a specified folder and files from Microsoft SharePoint to Azure Datalake blob storage.
 
- 1. Lookup the JSON configuration file for this pipeline.
+ 1. Lookup the `.json` configuration file for this pipeline.
  2. Set the SharePoint file path and SharePoint logic app URL.
  3. Call the SharePoint logic app using a webhook that will send back a message once the file transfer is complete.
  4. If the logic app fails, the error notification logic app API will notify the specified email address of the error.
@@ -510,7 +508,7 @@ Pipeline Configuration
 Data Factory Configuration
 --------------------------
 
-Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+Download the Azure Data Factory `.json` configuration file to use this template in your own data pipelines.
 
 :download:`sharepoint-ingestion.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/sharepoint-ingestion.json>`
 
@@ -550,7 +548,7 @@ Description
 
 Pipeline to process data from a folder in Azure Datalake blob storage using a databricks notebook
 
- 1. Lookup the JSON configuration file for this pipeline.
+ 1. Lookup the `.json` configuration file for this pipeline.
  2. Set the databricks notebook path.
  3. Databricks notebook activity runs the databricks notebook specified using an ephemeral job cluster.
  4. If the databricks notebook activity fails, the error notification logic app API will notify the specified email address of the error.
@@ -596,7 +594,7 @@ Databricks Orchestration
         }
     }
 
-Python code to sequentially run databricks notebook paths specified in a JSON config file from a databricks orchestrator notebook.
+Python code to sequentially run databricks notebook paths specified in a `.json` config file from a databricks orchestrator notebook.
 
 .. code:: python
 
@@ -610,7 +608,7 @@ Python code to sequentially run databricks notebook paths specified in a JSON co
 Data Factory Configuration
 --------------------------
 
-Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+Download the Azure Data Factory .`json` configuration file to use this template in your own data pipelines.
 
 :download:`processing-databricks.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/databricks-processing.json>`
 
@@ -653,7 +651,7 @@ Description
 
 Pipeline to process data to time-stamped folder in Azure Datalake blob storage using an Azure function app.
 
- 1. Lookup the JSON configuration file for this pipeline.
+ 1. Lookup the `.json` configuration file for this pipeline.
  2. Set the source path (of the data to be processed).
  3. Set the file system.
  4. Set the Azure function app.
@@ -661,11 +659,11 @@ Pipeline to process data to time-stamped folder in Azure Datalake blob storage u
  6. If the ‘laterFolder’ utility fails, the error notification logic app API will notify the specified email address of the error.
  7. Lookup the latest folder.
  8. Set the latest folder.
- 9. Set the JSON Body for the Azure function app.
+ 9. Set the `.json` body for the Azure function app.
  10. Run the Azure function app activity.
  11. If the Azure function app activity fails, the error notification logic app API will notify the specified email address of the error.
 
-Within the Azure function app data can be saved to blob storage as either a .csv file or a .parquet file.
+Within the Azure function app data can be saved to blob storage as either a `.csv` file or a `.parquet` file.
 
 Pipeline Configuration
 ----------------------
@@ -686,7 +684,7 @@ Pipeline Configuration
 Data Factory Configuration
 --------------------------
 
-Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+Download the Azure Data Factory `.json` configuration file to use this template in your own data pipelines.
 
 :download:`function-app-processing.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/function-app-processing.json>`
 
@@ -712,7 +710,7 @@ Metadata
 
     CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli
     CONTACT:        data@nhsx.nhs.uk
-    CREATED:        20 Sept 2021
+    CREATED:        29 Sept 2021
     VERSION:        0.0.1
     """
 
@@ -734,7 +732,7 @@ Description
 
 Pipeline to process data to time-stamped folder in Azure Datalake blob storage using multiple Azure function apps.
 
- 1. Lookup the JSON configuration file for this pipeline.
+ 1. Lookup the `.json` configuration file for this pipeline.
  2. Set the source path (of the data to be processed).
  3. Set the file system.
  4. Set the Azure function app.
@@ -743,13 +741,13 @@ Pipeline to process data to time-stamped folder in Azure Datalake blob storage u
  7. Lookup the latest folder.
  8. Set the latest folder.
  9. Set the JSON Body for the Azure function app.
- 10. Set an ``array`` variable containing the list of Azure function apps to be run.
+ 10. Set an `array` variable containing the list of Azure function apps to be run.
  11. ForEach loops over each azure function:
  
     a. Runs the Azure function app activity.
     b. If the Azure function app activity fails, the error notification logic app API will notify the specified email address of the error.
 
-Within the Azure function app data can be saved to blob storage as either a .csv file or a .parquet file.
+Within the Azure function app data can be saved to blob storage as either a `.csv` file or a `.parquet` file.
 
 Pipeline Configuration
 ----------------------
@@ -774,7 +772,7 @@ Pipeline Configuration
 Data Factory Configuration
 --------------------------
 
-Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+Download the Azure Data Factory `.json` configuration file to use this template in your own data pipelines.
 
 :download:`multiple-function-app-processing.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/multiple-function-app-processing.json>`
 
@@ -810,11 +808,11 @@ Description
 .. image:: _static/img/pipeline_temps/csv_file_processing.png
   :width: 600
   :alt: Copying a .csv file between Azure Datalake directories
-*Figure 1: Copying a .csv file between Azure Datalake directories*
+*Figure 1: Copying a `.csv` file between Azure Datalake directories*
 
-Pipeline to copy a .csv file in a time-stamped folder between directories in Azure Datalake blob storage.
+Pipeline to copy a `.csv` file in a time-stamped folder between directories in Azure Datalake blob storage.
 
- 1. Lookup the JSON configuration file for this pipeline.
+ 1. Lookup the `.json` configuration file for this pipeline.
  2. Set the Azure Datalake file system
  3. Set the source path and source file name.
  4. Set the sink path and sink file name.
@@ -822,7 +820,7 @@ Pipeline to copy a .csv file in a time-stamped folder between directories in Azu
  6. If the ‘laterFolder’ utility fails, the error notification logic app API will notify the specified email address of the error.
  7. Lookup the latest folder.
  8. Set the latest folder.
- 9. Copy activity copies the .csv file between the Datalake directories.
+ 9. Copy activity copies the `.csv` file between the Datalake directories.
  10. If the copy activity fails, the error notification logic app API will notify the specified email address of the error.
 
 Pipeline Configuration
@@ -846,7 +844,7 @@ Pipeline Configuration
 Data Factory Configuration
 --------------------------
 
-Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+Download the Azure Data Factory `.json` configuration file to use this template in your own data pipelines.
 
 :download:`csv-file-processing.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/csv-file-processing.json>`
 
@@ -884,9 +882,9 @@ Description
   :alt: Data staging to a table in an Azure SQL database
 *Figure 1: Data staging to a table in an Azure SQL database*
 
-Pipeline to stage data (.csv file) from a time-stamped folder in Azure Datalake blob storage to a table in an Azure SQL database. 
+Pipeline to stage data (`.csv` file) from a time-stamped folder in Azure Datalake blob storage to a table in an Azure SQL database. 
 
- 1. Lookup the JSON configuration file for this pipeline.
+ 1. Lookup the `.json` configuration file for this pipeline.
  2. Set the source path (of data to be staged).
  3. Set the source file.
  4. Set the file system. 
@@ -897,7 +895,7 @@ Pipeline to stage data (.csv file) from a time-stamped folder in Azure Datalake 
  9. If the ‘laterFolder’ utility fails, the error notification logic app API will notify the specified email address of the error.
  10. Lookup the latest folder.
  11. Set the latest folder.
- 12. Run the copy activity which stages data from a .csv file in Azure Datalake blob storage to an empty table in an Azure SQL database.
+ 12. Run the copy activity which stages data from a `.csv` file in Azure Datalake blob storage to an empty table in an Azure SQL database.
  13. If the Azure copy activity fails, the error notification logic app API will notify the specified email address of the error.
 
 Pipeline Configuration
@@ -964,9 +962,9 @@ Description
   :alt: ForEach loop activities within pipeline
 *Figure 2: ForEach loop activities within pipeline*
 
-Pipeline to stage data (.csv files) from a time-stamped folders in Azure Datalake blob storage to multiple tables in an Azure SQL database.  
+Pipeline to stage data (`.csv` files) from a time-stamped folders in Azure Datalake blob storage to multiple tables in an Azure SQL database.  
 
- 1. Lookup the JSON configuration file for this pipeline.
+ 1. Lookup the `.json` configuration file for this pipeline.
  2. Set the file system. 
  3. Set an ``array`` variable containing the list of stored procedures and tables to which processed data is to be staged.
  4. For each element in the list the ForEach loop:
@@ -979,7 +977,7 @@ Pipeline to stage data (.csv files) from a time-stamped folders in Azure Datalak
     f. Sets the sink table (target table in the SQL database).
     g. Sets the stored procedure (truncates data in the target table in the SQL database).
     h. Runs the stored procedure activity. The stored procedure also sets the data type of each column in the database table. 
-    i. Runs the copy activity which stages data from a .csv file in azure Datalake blob storage to an empty table in an Azure SQL database.
+    i. Runs the copy activity which stages data from a `.csv` file in azure Datalake blob storage to an empty table in an Azure SQL database.
     j. If the Azure copy activity fails, the error notification logic app API will notify the specified email address of the error.
 
 Pipeline Configuration
@@ -1017,7 +1015,7 @@ Pipeline Configuration
 Data Factory Configuration
 --------------------------
 
-Download the Azure Data Factory json configuration file to use this template in your own data pipelines.
+Download the Azure Data Factory `.json` configuration file to use this template in your own data pipelines.
 
 :download:`multiple-tables-sql-database-staging.json <https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-templates/multiple-tables-sql-database-staging.json>`
 
