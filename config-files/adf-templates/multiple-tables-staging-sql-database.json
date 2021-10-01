@@ -1,0 +1,470 @@
+{
+    "name": "staging_sql_multiple_tables",
+    "properties": {
+        "activities": [
+            {
+                "name": "configFile lookup",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": false,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "dataset": {
+                        "referenceName": "configFile",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "configFile": {
+                                "value": "@pipeline().parameters.configFile",
+                                "type": "Expression"
+                            },
+                            "configPath": {
+                                "value": "@pipeline().parameters.configPath",
+                                "type": "Expression"
+                            },
+                            "configFS": {
+                                "value": "@pipeline().parameters.configFS",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "name": "set fileSystem",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "fileSystem",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.adl_file_system",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "ForEach",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "set metric list array",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "set fileSystem",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@variables('metricList')",
+                        "type": "Expression"
+                    },
+                    "isSequential": false,
+                    "batchCount": 4,
+                    "activities": [
+                        {
+                            "name": "stored procedure",
+                            "description": "Pre-copy script, saved as a stored procedure in the \"staging\" database.",
+                            "type": "SqlServerStoredProcedure",
+                            "dependsOn": [
+                                {
+                                    "activity": "set stored procedure",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "7.00:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "storedProcedureName": {
+                                    "value": "@variables('storedProcedure')",
+                                    "type": "Expression"
+                                }
+                            },
+                            "linkedServiceName": {
+                                "referenceName": "tableau_slt_staging_server",
+                                "type": "LinkedServiceReference"
+                            }
+                        },
+                        {
+                            "name": "Copy data to Azure SQL database",
+                            "description": "Copies data from an Azure Datalake folder to a table in an Azure SQL database.",
+                            "type": "Copy",
+                            "dependsOn": [
+                                {
+                                    "activity": "stored procedure",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                {
+                                    "activity": "set latestFolder",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "7.00:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "DelimitedTextSource",
+                                    "storeSettings": {
+                                        "type": "AzureBlobFSReadSettings",
+                                        "recursive": true,
+                                        "enablePartitionDiscovery": false
+                                    },
+                                    "formatSettings": {
+                                        "type": "DelimitedTextReadSettings"
+                                    }
+                                },
+                                "sink": {
+                                    "type": "AzureSqlSink",
+                                    "preCopyScript": "\n\n",
+                                    "disableMetricsCollection": false,
+                                    "writeBehavior": "insert"
+                                },
+                                "enableStaging": false,
+                                "translator": {
+                                    "type": "TabularTranslator",
+                                    "typeConversion": true,
+                                    "typeConversionSettings": {
+                                        "allowDataTruncation": true,
+                                        "treatBooleanAsNumber": false
+                                    }
+                                }
+                            },
+                            "inputs": [
+                                {
+                                    "referenceName": "source_csv",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "filePath": {
+                                            "value": "@concat(variables('sourcePath'),variables('latestFolder'))",
+                                            "type": "Expression"
+                                        },
+                                        "fileName": {
+                                            "value": "@variables('sourceFile')",
+                                            "type": "Expression"
+                                        },
+                                        "fileSystem": {
+                                            "value": "@variables('fileSystem')",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                }
+                            ],
+                            "outputs": [
+                                {
+                                    "referenceName": "sql_table_sink",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "sinkTable": {
+                                            "value": "@variables('sinkTable')",
+                                            "type": "Expression"
+                                        },
+                                        "sinkSchema": "dbo"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "error_notification_1",
+                            "type": "ExecutePipeline",
+                            "dependsOn": [
+                                {
+                                    "activity": "Copy data to Azure SQL database",
+                                    "dependencyConditions": [
+                                        "Failed"
+                                    ]
+                                }
+                            ],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "pipeline": {
+                                    "referenceName": "error_notification",
+                                    "type": "PipelineReference"
+                                },
+                                "waitOnCompletion": false,
+                                "parameters": {
+                                    "subjectLine": {
+                                        "value": "@concat('ADF Pipeline Error:', pipeline().DataFactory, ' ', pipeline().Pipeline)",
+                                        "type": "Expression"
+                                    },
+                                    "errorMsg": {
+                                        "value": "@concat('Error in activity: ', activity('Copy data to Azure SQL database').Error.Message)",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "set stored procedure",
+                            "type": "SetVariable",
+                            "dependsOn": [
+                                {
+                                    "activity": "set sink table",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "storedProcedure",
+                                "value": {
+                                    "value": "@item().stored_procedure",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "set source path",
+                            "type": "SetVariable",
+                            "dependsOn": [],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "sourcePath",
+                                "value": {
+                                    "value": "@item().source_path",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "set sink table",
+                            "type": "SetVariable",
+                            "dependsOn": [],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "sinkTable",
+                                "value": {
+                                    "value": "@item().sink_table",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "set source file",
+                            "type": "SetVariable",
+                            "dependsOn": [],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "sourceFile",
+                                "value": {
+                                    "value": "@item().source_file",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "latestFolder lookup",
+                            "type": "Lookup",
+                            "dependsOn": [
+                                {
+                                    "activity": "latestFolder utility",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "7.00:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "JsonSource",
+                                    "storeSettings": {
+                                        "type": "AzureBlobFSReadSettings",
+                                        "recursive": true,
+                                        "enablePartitionDiscovery": false
+                                    },
+                                    "formatSettings": {
+                                        "type": "JsonReadSettings"
+                                    }
+                                },
+                                "dataset": {
+                                    "referenceName": "latestFolder_lookup",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "fileSystem": {
+                                            "value": "@variables('fileSystem')",
+                                            "type": "Expression"
+                                        },
+                                        "path": {
+                                            "value": "@concat('config/latestFolder/',variables('sourcePath'))",
+                                            "type": "Expression"
+                                        },
+                                        "file": "latestFolder_param.json"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "set latestFolder",
+                            "type": "SetVariable",
+                            "dependsOn": [
+                                {
+                                    "activity": "latestFolder lookup",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "latestFolder",
+                                "value": {
+                                    "value": "@activity('latestFolder lookup').output.firstRow.latestFolder",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "latestFolder utility",
+                            "type": "ExecutePipeline",
+                            "dependsOn": [
+                                {
+                                    "activity": "set source path",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                {
+                                    "activity": "set source file",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "userProperties": [],
+                            "typeProperties": {
+                                "pipeline": {
+                                    "referenceName": "latestFolder_api",
+                                    "type": "PipelineReference"
+                                },
+                                "waitOnCompletion": true,
+                                "parameters": {
+                                    "configPath": {
+                                        "value": "@variables('sourcePath')",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "set metric list array",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "configFile lookup",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "metricList",
+                    "value": {
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.staging",
+                        "type": "Expression"
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "configFile": {
+                "type": "string"
+            },
+            "configPath": {
+                "type": "string"
+            },
+            "configFS": {
+                "type": "string"
+            }
+        },
+        "variables": {
+            "latestFolder": {
+                "type": "String"
+            },
+            "prevFolder": {
+                "type": "String",
+                "defaultValue": "1970-01-01"
+            },
+            "sourcePath": {
+                "type": "String"
+            },
+            "sinkTable": {
+                "type": "String"
+            },
+            "storedProcedure": {
+                "type": "String"
+            },
+            "sourceFile": {
+                "type": "String"
+            },
+            "fileSystem": {
+                "type": "String"
+            },
+            "metricList": {
+                "type": "Array"
+            }
+        },
+        "folder": {
+            "name": "templates/staging"
+        },
+        "annotations": []
+    }
+}

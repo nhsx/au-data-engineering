@@ -91,7 +91,7 @@
                 "typeProperties": {
                     "variableName": "databricksPath",
                     "value": {
-                        "value": "@activity('configFile lookup').output.firstRow.pipeline.ingestion.databricks_notebook",
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.databricks_notebook",
                         "type": "Expression"
                     }
                 }

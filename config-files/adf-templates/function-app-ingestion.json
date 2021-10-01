@@ -91,7 +91,7 @@
                 "typeProperties": {
                     "variableName": "funcApp",
                     "value": {
-                        "value": "@activity('configFile lookup').output.firstRow.pipeline.ingestion.func_name",
+                        "value": "@activity('configFile lookup').output.firstRow.pipeline.raw.func_name",
                         "type": "Expression"
                     }
                 }
