@@ -19,7 +19,7 @@ Metadata
     # -------------------------------------------------------------------------
 
     """
-    FILE:           latestFolder.json.json
+    FILE:           latestFolder.json
     DESCRIPTION:
                     The latest folder lookup ADF utility allows you to find the
                     most recent folder from a directory of time-stamped folders.
