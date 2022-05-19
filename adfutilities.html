@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Azure Data Factory Utilities &mdash; NHSX Data Engineering 0.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Azure Databricks Functions" href="databricksfunc.html" />
+    <link rel="prev" title="Azure Data Factory Templates" href="adfpipelines.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NHSX Data Engineering
+          
+
+          
+            
+            <img src="_static/logo-wordmark-light.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Core Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nhsappanalytics.html">NHS App Analytics Dashboard</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Data Engineering</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Azure Platform Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfpipelines.html">Azure Data Factory Templates</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Azure Data Factory Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#latest-folder-lookup">Latest Folder Lookup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#metadata">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#problem">Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pipeline-setup">Pipeline setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loop-setup">Loop setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conditional-setup">Conditional setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copy-data-setup">Copy Data setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-factory-configuration">Data Factory Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="databricksfunc.html">Azure Databricks Functions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Open Analytics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="openanalyticstemplate.html">Open Analytics Template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NHSX Data Engineering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Azure Data Factory Utilities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/adfutilities.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="azure-data-factory-utilities">
+<h1>Azure Data Factory Utilities<a class="headerlink" href="#azure-data-factory-utilities" title="Permalink to this headline">¶</a></h1>
+<p>Open access and reusable design documentation of utilities used in the NHSX Analytics Unit Azure Data Factory (ADF) environment.</p>
+<div class="section" id="latest-folder-lookup">
+<h2>Latest Folder Lookup<a class="headerlink" href="#latest-folder-lookup" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="metadata">
+<h3>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.</span>
+<span class="c1"># Licensed under the MIT License. See license.txt in the project root for</span>
+<span class="c1"># license information.</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">FILE:           latestFolder.json</span>
+<span class="sd">DESCRIPTION:</span>
+<span class="sd">                The latest folder lookup ADF utility allows you to find the</span>
+<span class="sd">                most recent folder from a directory of time-stamped folders.</span>
+
+<span class="sd">CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli</span>
+<span class="sd">CONTACT:        data@nhsx.nhs.uk</span>
+<span class="sd">CREATED:        19 Sept 2021</span>
+<span class="sd">VERSION:        0.0.1</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>The latest folder lookup ADF utility allows you to find the most recent folder from a directory of time-stamped folders. This utility was developed from a method to get the latest added file in a folder, the source of which can be found <a class="reference external" href="https://stackoverflow.com/questions/60558731/get-the-latest-added-file-in-a-folder-azure-data-factory/60558836#60558836">here</a>.</p>
+<p>The Azure Data Factory json configuration file is <a class="reference external" href="#json-configuration">available below</a>.</p>
+</div>
+<div class="section" id="problem">
+<h3>Problem<a class="headerlink" href="#problem" title="Permalink to this headline">¶</a></h3>
+<p>Data is saved in directory of time stamped folders, as shown below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root/
+├── directory/
+│   ├── <span class="m">2021</span>-06-01/
+│   ├── <span class="m">2021</span>-06-02/
+│   ├── <span class="m">2021</span>-06-03/
+│   └── <span class="m">2021</span>-06-04/
+</pre></div>
+</div>
+<p>How to select the latest folder in an ADF pipeline based on the name of the folder (rather than the latest modified)?</p>
+</div>
+<div class="section" id="pipeline-setup">
+<h3>Pipeline setup<a class="headerlink" href="#pipeline-setup" title="Permalink to this headline">¶</a></h3>
+<p>Here we develop a template solution in Azure Data Factory that will compare the names of time-stamped folders to find the folder with the latest date. The Azure Data Factory json configuration file is <a class="reference external" href="#json-configuration">available below</a>.</p>
+<a class="reference internal image-reference" href="_images/overview.png"><img alt="Overview of the latest folder lookup ADF utility" src="_images/overview.png" style="width: 600px;" /></a>
+<p><em>Figure 1: Overview of the latest folder lookup ADF utility</em></p>
+<p><strong>Step 1.</strong> Create two pipeline variables: <code class="docutils literal notranslate"><span class="pre">latestFolder</span></code> and <code class="docutils literal notranslate"><span class="pre">prevFolder</span></code> (see Figure 2).</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">latestFolder</span></code> variable is an empty string to save the latest folder name.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">prevFolder</span></code> variable is set to a historical date before you started collecting data for example, ‘1970-01-01’</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/pipeline-variables.png"><img alt="Adding pipeline variables" src="_images/pipeline-variables.png" style="width: 600px;" /></a>
+<p><em>Figure 2: Adding pipeline variables</em></p>
+<p><strong>Step 2.</strong> Create a ‘folder_metadata’ dataset with the path set to the root directory of the time-stamped folder for example, <code class="docutils literal notranslate"><span class="pre">root/directory/</span></code> (see Figure 3).</p>
+<a class="reference internal image-reference" href="_images/new-folder-metadata.png"><img alt="Creating a folder_metadata dataset" src="_images/new-folder-metadata.png" style="width: 600px;" /></a>
+<p><em>Figure 3: Creating a folder_metadata dataset</em></p>
+<p><strong>Step 3.</strong> Create a GetMetadata activity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information on the GetMetadata ADF activity can be found in the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/data-factory/control-flow-get-metadata-activity">Microsoft documentation</a>.</p>
+</div>
+<ul class="simple">
+<li><p>Link the ‘folder_metadata’ dataset to the GetMetadata activity under the dataset tab.</p></li>
+<li><p>Add a ‘Field List’ argument as <code class="docutils literal notranslate"><span class="pre">Child</span> <span class="pre">Items</span></code>, this will list each subfolder in the ‘folder metadata’ dataset (see Figure 4).</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/child-items.png"><img alt="Creating a GetMetadata activity" src="_images/child-items.png" style="width: 600px;" /></a>
+<p><em>Figure 4: Creating a GetMetadata activity</em></p>
+</div>
+<div class="section" id="loop-setup">
+<h3>Loop setup<a class="headerlink" href="#loop-setup" title="Permalink to this headline">¶</a></h3>
+<p><strong>Step 4.</strong> Create a ‘ForEach’ activity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information on the ForEach ADF activity can be found in the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/data-factory/control-flow-for-each-activity">Microsoft documentation</a>.</p>
+</div>
+<ul class="simple">
+<li><p>In the ForEach activity settings, set ‘items’ as <code class="docutils literal notranslate"><span class="pre">&#64;activity('get_folder_metadata').output.childItems</span></code> (see Figure 5).</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/foreach-activity.png"><img alt="Creating a ForEach activity" src="_images/foreach-activity.png" style="width: 600px;" /></a>
+<p><em>Figure 5: Creating a ForEach activity</em></p>
+<p><strong>Step 5.</strong> Within the ‘ForEach’ activity create a second get GetMetadata activity (see Figure 6).</p>
+<ul class="simple">
+<li><p>Create a ‘date metadata’ dataset with the path set to: <code class="docutils literal notranslate"><span class="pre">&#64;concat('root/directory/',dataset().latestDate)</span></code></p></li>
+<li><p>Set the target dataset to ‘date_metadata’ and add a parameter to the dataset called <code class="docutils literal notranslate"><span class="pre">latestDate</span></code></p></li>
+<li><p>In the second GetMetadata activity set the parameter <code class="docutils literal notranslate"><span class="pre">latestDate</span></code> to <code class="docutils literal notranslate"><span class="pre">&#64;item().name</span></code></p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/second-metadata.png"><img alt="Creating a second GetMetadata activity" src="_images/second-metadata.png" style="width: 600px;" /></a>
+<p><em>Figure 6: Creating a second GetMetadata activity, within the previously created ForEach activity</em></p>
+</div>
+<div class="section" id="conditional-setup">
+<h3>Conditional setup<a class="headerlink" href="#conditional-setup" title="Permalink to this headline">¶</a></h3>
+<p><strong>Step 6.</strong> Create a ‘If Conditional’ activity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information on the If Conditional ADF activity can be found in the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/data-factory/control-flow-if-condition-activity">Microsoft documentation</a>.</p>
+</div>
+<p><strong>Step 7.</strong> Set the expression in the If Conditional activity (added as dynamic content) as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>@greater<span class="o">(</span>formatDateTime<span class="o">(</span>activity<span class="o">(</span><span class="s1">&#39;get_folder_metadata_2&#39;</span><span class="o">)</span>.output.itemName,<span class="s1">&#39;yyyyMMdd&#39;</span><span class="o">)</span>,formatDateTime<span class="o">(</span>variables<span class="o">(</span><span class="s1">&#39;prevFolder&#39;</span><span class="o">)</span>,<span class="s1">&#39;yyyyMMdd&#39;</span><span class="o">))</span>
+</pre></div>
+</div>
+<p>This will check if the name of each folder (formatted as a date) is greater (i.e., the latest) than the previous folder in the loop, starting with the default value - ‘1970-01-01’ (see Figure 7).</p>
+<a class="reference internal image-reference" href="_images/if-condition.png"><img alt="Setting an expression within an If Conditional activity" src="_images/if-condition.png" style="width: 600px;" /></a>
+<p><em>Figure 7: Setting an expression within an If Conditional activity</em></p>
+<p><strong>Step 8.</strong> In the ‘If Conditional’ activity where <code class="docutils literal notranslate"><span class="pre">Case</span> <span class="pre">=</span> <span class="pre">True</span></code> (i.e.,  if the folder name is greater than the previous folder name) create a new Set Variable activity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information on the Set Variable ADF activity can be found in the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/data-factory/control-flow-set-variable-activity">Microsoft documentation</a>.</p>
+</div>
+<ul class="simple">
+<li><p>Within the Set Variable activity set <code class="docutils literal notranslate"><span class="pre">Name</span> <span class="pre">=</span> <span class="pre">latestFolder</span></code> and <code class="docutils literal notranslate"><span class="pre">Value</span> <span class="pre">=</span> <span class="pre">&#64;activity('get_folder_metadata_2').output.itemName</span></code> (see Figure 8).</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/set-variable2.png"><img alt="Creating a Set Variable activity where latest folder = true" src="_images/set-variable2.png" style="width: 600px;" /></a>
+<p><em>Figure 8: Creating a Set Variable activity where latest folder = true</em></p>
+<p><strong>Step 9.</strong> Go back to the loop and add another Set Variable activity after the If Conditional activity.</p>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">Name</span> <span class="pre">=</span> <span class="pre">prevFolder</span></code> and <code class="docutils literal notranslate"><span class="pre">Value</span> <span class="pre">=</span> <span class="pre">&#64;activity('get_folder_metadata_2').output.itemName</span></code> (see Figure 10).</p></li>
+</ul>
+<p>This will update the prevFolder value to the next folder in the set after each loop.</p>
+<a class="reference internal image-reference" href="_images/set-variable.png"><img alt="Creating a Set Variable activity for the previous folder" src="_images/set-variable.png" style="width: 600px;" /></a>
+<p><em>Figure 9: Creating a Set Variable activity for the previous folder</em></p>
+</div>
+<div class="section" id="copy-data-setup">
+<h3>Copy Data setup<a class="headerlink" href="#copy-data-setup" title="Permalink to this headline">¶</a></h3>
+<p><strong>Step 10.</strong> Create a ‘latest_folder_source’ dataset.</p>
+<ul class="simple">
+<li><p>Set the path to <code class="docutils literal notranslate"><span class="pre">&#64;concat('root/directory/',</span> <span class="pre">dataset().folderName,</span> <span class="pre">'/')</span></code>.</p></li>
+</ul>
+<p><strong>Step 11.</strong> Add a parameter to ‘latest_folder_source’ dataset called folderName.</p>
+<ul class="simple">
+<li><p>Set the parameter folderName to <code class="docutils literal notranslate"><span class="pre">&#64;variable('latestFolder')</span></code>.</p></li>
+</ul>
+<p><strong>Step 12.</strong> Create a ‘Copy Data’ activity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information on the Copy Data ADF activity can be found in the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-overview">Microsoft documentation</a>.</p>
+</div>
+<ul class="simple">
+<li><p>Set the ‘latest_folder_source’ dataset as the source and an appropriate dataset as sink where you want to save the latest data (see Figure 10).</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/copy-data.png"><img alt="Creation of a Copy Data activity" src="_images/copy-data.png" style="width: 600px;" /></a>
+<p><em>Figure 10: Creation of a Copy Data activity with the ‘latest_folder_source’ dataset set as the source</em></p>
+</div>
+<div class="section" id="data-factory-configuration">
+<h3>Data Factory Configuration<a class="headerlink" href="#data-factory-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Download the Azure Data Factory json configuration file to use this template in your own data pipelines.</p>
+<p><a class="reference download external" download="" href="https://raw.githubusercontent.com/nhsx/au-data-engineering/main/config-files/adf-utilities/latestFolder.json"><code class="xref download docutils literal notranslate"><span class="pre">latestFolder.json</span></code></a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="databricksfunc.html" class="btn btn-neutral float-right" title="Azure Databricks Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="adfpipelines.html" class="btn btn-neutral float-left" title="Azure Data Factory Templates" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 NHS England and NHS Improvement, MIT Licence.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

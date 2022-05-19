@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Azure Platform Overview &mdash; NHSX Data Engineering 0.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Azure Data Factory Templates" href="adfpipelines.html" />
+    <link rel="prev" title="NHS App Analytics Dashboard" href="nhsappanalytics.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NHSX Data Engineering
+          
+
+          
+            
+            <img src="_static/logo-wordmark-light.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Core Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nhsappanalytics.html">NHS App Analytics Dashboard</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Data Engineering</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Azure Platform Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-engineering-repositories">Data Engineering Repositories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#our-core-repositories">Our Core Repositories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#our-product-repositories">Our Product Repositories</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adfpipelines.html">Azure Data Factory Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfutilities.html">Azure Data Factory Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="databricksfunc.html">Azure Databricks Functions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Open Analytics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="openanalyticstemplate.html">Open Analytics Template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NHSX Data Engineering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Azure Platform Overview</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/readme.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="azure-platform-overview">
+<h1>Azure Platform Overview<a class="headerlink" href="#azure-platform-overview" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="data-engineering-repositories">
+<h2>Data Engineering Repositories<a class="headerlink" href="#data-engineering-repositories" title="Permalink to this headline">¶</a></h2>
+<p>We have a series of repositories for our work that we have listed below. We have adopted the naming convention of starting each repo with <code class="docutils literal notranslate"><span class="pre">au-</span></code> for the Analytics Unit. Where some repos have a similar purpose we name them similarly, (e.g. <code class="docutils literal notranslate"><span class="pre">au-azure-*</span></code> for azure related code). We also try to implement a naming convention so that users can infer a basic understanding of what a given thing does from its name.</p>
+<div class="section" id="our-core-repositories">
+<h3>Our Core Repositories<a class="headerlink" href="#our-core-repositories" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Website</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/nhsx/nhsx-data-engineering">nhsx/au-data-engineering</a></p></td>
+<td><p>[<a class="reference external" href="https://nhsx.github.io/au-data-engineering/">Link</a>]</p></td>
+<td><p>NHSX Data Engineering Documentation</p></td>
+<td><p>Open</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/nhsx/au-azure-data-factory">nhsx/au-azure-data-factory</a></p></td>
+<td><p>[<a class="reference external" href="https://github.com/nhsx/au-azure-data-factory">Link</a>]</p></td>
+<td><p>Azure Data Factory Code</p></td>
+<td><p>Private</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/nhsx/au-azure-databricks">nhsx/au-azure-databricks</a></p></td>
+<td><p>[<a class="reference external" href="https://github.com/nhsx/au-azure-databricks">Link</a>]</p></td>
+<td><p>Azure Databricks Code</p></td>
+<td><p>Open</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/nhsx/au-tableau-analytics">nhsx/au-tableau-analytics</a></p></td>
+<td><p>[<a class="reference external" href="https://github.com/nhsx/au-tableau-analytics">Link</a>]</p></td>
+<td><p>Tableau Analytics Workbooks</p></td>
+<td><p>Open</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="our-product-repositories">
+<h3>Our Product Repositories<a class="headerlink" href="#our-product-repositories" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Website</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/nhsx/nhs-app-analytics-dashboard">nhsx/nhs-app-analytics-dashboard</a></p></td>
+<td><p>[<a class="reference external" href="https://digital.nhs.uk/services/nhs-app/nhs-app-dashboard">Link</a>]</p></td>
+<td><p>The NHS App dashboard enables you to see how many patients are using the NHS App across England, and which features they are using</p></td>
+<td><p>Open</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="nhsx/digital-health-insights">nhsx/digital-health-insights</a></p></td>
+<td><p>[<a class="reference external" href="https://nhsx.github.io/digital-health-insights/">Link</a>]</p></td>
+<td><p>Analytical insights on the digital transformation of the NHS</p></td>
+<td><p>Open</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/nhsx/digital-health-insights">nhsx/open-health-statistics</a></p></td>
+<td><p>[<a class="reference external" href="https://nhsx.github.io/open-health-statistics/">Link</a>]</p></td>
+<td><p>Collecting statistics on open source NHS and healthcare related code repositories</p></td>
+<td><p>Open</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/nhsx/open-analytics-template">nhsx/open-analytics-template</a></p></td>
+<td><p>[<a class="reference external" href="https://nhsx.github.io/open-analytics-template/">Link</a>]</p></td>
+<td><p>NHS.UK themed template for open analytics projects</p></td>
+<td><p>Open</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="adfpipelines.html" class="btn btn-neutral float-right" title="Azure Data Factory Templates" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="nhsappanalytics.html" class="btn btn-neutral float-left" title="NHS App Analytics Dashboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 NHS England and NHS Improvement, MIT Licence.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

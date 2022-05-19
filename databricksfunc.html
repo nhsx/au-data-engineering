@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Azure Databricks Functions &mdash; NHSX Data Engineering 0.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Open Analytics Template" href="openanalyticstemplate.html" />
+    <link rel="prev" title="Azure Data Factory Utilities" href="adfutilities.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NHSX Data Engineering
+          
+
+          
+            
+            <img src="_static/logo-wordmark-light.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Core Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nhsappanalytics.html">NHS App Analytics Dashboard</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Data Engineering</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Azure Platform Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfpipelines.html">Azure Data Factory Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfutilities.html">Azure Data Factory Utilities</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Azure Databricks Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#datalake-to-pandas">DataLake to Pandas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#metadata">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#imports">Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#download">Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upload">Upload</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Open Analytics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="openanalyticstemplate.html">Open Analytics Template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NHSX Data Engineering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Azure Databricks Functions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/databricksfunc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="azure-databricks-functions">
+<h1>Azure Databricks Functions<a class="headerlink" href="#azure-databricks-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="datalake-to-pandas">
+<h2>DataLake to Pandas<a class="headerlink" href="#datalake-to-pandas" title="Permalink to this headline">¶</a></h2>
+<p>Azure function app to pull/push Azure Datalake files to <code class="docutils literal notranslate"><span class="pre">pandas</span></code> dataframe in memory. To avoid the 500mb limit of the <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> folder.</p>
+<p><a class="reference external" href="https://docs.microsoft.com/en-us/python/api/azure-storage-file-datalake/azure.storage.filedatalake.datalakefileclient?view=azure-python#methods">Microsoft Azure docs</a> for <code class="docutils literal notranslate"><span class="pre">azure-storage-file-datalake</span></code> methods</p>
+<div class="section" id="metadata">
+<h3>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin python3</span>
+
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.</span>
+<span class="c1"># Licensed under the MIT License. See license.txt in the project root for</span>
+<span class="c1"># license information.</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">FILE:           pandas2adl.py</span>
+<span class="sd">DESCRIPTION:</span>
+<span class="sd">                pandas2adl func app</span>
+<span class="sd">USAGE:</span>
+<span class="sd">                ...</span>
+<span class="sd">CONTRIBUTORS:   Craig Shenton, Mattia Ficarelli</span>
+<span class="sd">CONTACT:        data@nhsx.nhs.uk</span>
+<span class="sd">CREATED:        09 Aug 2021</span>
+<span class="sd">VERSION:        0.0.1</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="imports">
+<h3>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+
+<span class="c1"># Python:</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">io</span>
+
+<span class="c1"># 3rd party:</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">azure.storage.filedatalake</span> <span class="kn">import</span> <span class="n">DataLakeServiceClient</span>
+
+<span class="c1"># Internal:</span>
+<span class="kn">import</span> <span class="nn">azure.functions</span> <span class="k">as</span> <span class="nn">func</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="download">
+<h3>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download from Azure datalake to pandas dataframe</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="n">FILE_PATH</span> <span class="o">=</span> <span class="s2">&quot;folder/&quot;</span>
+<span class="n">FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;file.csv&quot;</span>
+<span class="n">FS</span> <span class="o">=</span> <span class="s2">&quot;adl_file_system&quot;</span>
+<span class="c1"># !env from func application settings</span>
+<span class="n">CONNECTION_STRING</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;CONNECTION_STRING&quot;</span><span class="p">)</span>
+
+<span class="n">service_client</span> <span class="o">=</span> <span class="n">DataLakeServiceClient</span><span class="o">.</span><span class="n">from_connection_string</span><span class="p">(</span><span class="n">CONNECTION_STRING</span><span class="p">)</span>
+<span class="n">file_system_client</span> <span class="o">=</span> <span class="n">service_client</span><span class="o">.</span><span class="n">get_file_system_client</span><span class="p">(</span><span class="n">file_system</span><span class="o">=</span><span class="n">FS</span><span class="p">)</span>
+<span class="n">directory_client</span> <span class="o">=</span> <span class="n">file_system_client</span><span class="o">.</span><span class="n">get_directory_client</span><span class="p">(</span><span class="n">FILE_PATH</span><span class="p">)</span>
+<span class="n">file_client</span> <span class="o">=</span> <span class="n">directory_client</span><span class="o">.</span><span class="n">get_file_client</span><span class="p">(</span><span class="n">FILE_NAME</span><span class="p">)</span>
+<span class="n">download</span> <span class="o">=</span> <span class="n">file_client</span><span class="o">.</span><span class="n">download_file</span><span class="p">()</span>
+<span class="n">downloaded_bytes</span> <span class="o">=</span> <span class="n">download</span><span class="o">.</span><span class="n">readall</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">downloaded_bytes</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://docs.microsoft.com/en-us/python/api/azure-storage-file-datalake/azure.storage.filedatalake.datalakefileclient?view=azure-python#download-file-offset-none--length-none----kwargs-">Microsoft Azure docs</a> for the <code class="docutils literal notranslate"><span class="pre">download-file</span></code> method</p>
+</div>
+<div class="section" id="upload">
+<h3>Upload<a class="headerlink" href="#upload" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Upload pandas dataframe to Azure datalake</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="n">FILE_PATH</span> <span class="o">=</span> <span class="s2">&quot;folder/&quot;</span>
+<span class="n">FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;file.csv&quot;</span>
+<span class="n">FS</span> <span class="o">=</span> <span class="s2">&quot;adl_file_system&quot;</span>
+<span class="c1"># !env from func application settings</span>
+<span class="n">CONNECTION_STRING</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;CONNECTION_STRING&quot;</span><span class="p">)</span>
+
+<span class="n">service_client</span> <span class="o">=</span> <span class="n">DataLakeServiceClient</span><span class="o">.</span><span class="n">from_connection_string</span><span class="p">(</span><span class="n">CONNECTION_STRING</span><span class="p">)</span>
+<span class="n">file_system_client</span> <span class="o">=</span> <span class="n">service_client</span><span class="o">.</span><span class="n">get_file_system_client</span><span class="p">(</span><span class="n">file_system</span><span class="o">=</span><span class="n">FS</span><span class="p">)</span>
+<span class="n">directory_client</span> <span class="o">=</span> <span class="n">file_system_client</span><span class="o">.</span><span class="n">get_directory_client</span><span class="p">(</span><span class="n">FILE_PATH</span><span class="p">)</span>
+<span class="n">file_client</span> <span class="o">=</span> <span class="n">directory_client</span><span class="o">.</span><span class="n">create_file</span><span class="p">(</span><span class="n">FILE_NAME</span><span class="p">)</span>
+
+<span class="n">file_contents</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span>
+<span class="n">file_length</span> <span class="o">=</span> <span class="n">file_contents</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+<span class="n">file_client</span><span class="o">.</span><span class="n">upload_data</span><span class="p">(</span>
+  <span class="n">file_contents</span><span class="o">.</span><span class="n">getvalue</span><span class="p">(),</span>
+  <span class="n">length</span><span class="o">=</span><span class="n">file_length</span><span class="p">,</span>
+  <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://docs.microsoft.com/en-us/python/api/azure-storage-file-datalake/azure.storage.filedatalake.datalakefileclient?view=azure-python#upload-data-data--length-none--overwrite-false----kwargs-">Microsoft Azure docs</a> for the <code class="docutils literal notranslate"><span class="pre">upload-data</span></code> method</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="openanalyticstemplate.html" class="btn btn-neutral float-right" title="Open Analytics Template" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="adfutilities.html" class="btn btn-neutral float-left" title="Azure Data Factory Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 NHS England and NHS Improvement, MIT Licence.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,431 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>NHS App Analytics Dashboard &mdash; NHSX Data Engineering 0.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Azure Platform Overview" href="readme.html" />
+    <link rel="prev" title="NHSX Data Engineering Docs" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> NHSX Data Engineering
+          
+
+          
+            
+            <img src="_static/logo-wordmark-light.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Core Products</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NHS App Analytics Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#nhs-app">NHS App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">NHS-App-Analytics-Dashboard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#information-you-can-get-through-the-dashboard">Information you can get through the dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-access-the-dashboard">How to access the dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#background-to-the-nhs-app-dashboard">Background to the NHS App dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nhs-app-data-dictionary">NHS App Data Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#change-log">Change log</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nhs-app-dashboard-v1-4">NHS App Dashboard v1.4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-caveats">Data Caveats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#features-added">1. Features Added:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#user-interface-changes">2. User Interface Changes:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#features-removed">3. Features Removed:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-1-3-change-log-29-09-2020">Version 1.3 Change Log (29-09-2020)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#user-verification-process">1. User Verification Process:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updated-registration-metric">2. Updated Registration Metric:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Data Engineering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Azure Platform Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfpipelines.html">Azure Data Factory Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfutilities.html">Azure Data Factory Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="databricksfunc.html">Azure Databricks Functions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Open Analytics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="openanalyticstemplate.html">Open Analytics Template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NHSX Data Engineering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>NHS App Analytics Dashboard</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/nhsappanalytics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nhs-app-analytics-dashboard">
+<h1>NHS App Analytics Dashboard<a class="headerlink" href="#nhs-app-analytics-dashboard" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="nhs-app">
+<h2>NHS App<a class="headerlink" href="#nhs-app" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.nhs.uk/nhs-app/">https://www.nhs.uk/nhs-app/</a>
+<a class="reference external" href="https://www.nhs.uk/apps-library/nhs-app/">https://www.nhs.uk/apps-library/nhs-app/</a>
+<a class="reference external" href="https://digital.nhs.uk/services/nhs-app">https://digital.nhs.uk/services/nhs-app</a></p>
+<p><a class="reference external" href="https://apps.apple.com/gb/app/nhs-app/id1388411277">https://apps.apple.com/gb/app/nhs-app/id1388411277</a>
+<a class="reference external" href="https://play.google.com/store/apps/details?id=com.nhs.online.nhsonline&amp;hl=en_GB&amp;gl=US">https://play.google.com/store/apps/details?id=com.nhs.online.nhsonline&amp;hl=en_GB&amp;gl=US</a></p>
+<a class="reference internal image-reference" href="_images/nhsapp.png"><img alt="The NHS App" src="_images/nhsapp.png" style="width: 300px;" /></a>
+</div>
+<div class="section" id="id1">
+<h2>NHS-App-Analytics-Dashboard<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>The NHS App dashboard enables you to see how many patients are using the NHS App across England, and which features they are using. It can be accessed by anyone with an NHS email address.</p>
+<div class="section" id="information-you-can-get-through-the-dashboard">
+<h3>Information you can get through the dashboard<a class="headerlink" href="#information-you-can-get-through-the-dashboard" title="Permalink to this headline">¶</a></h3>
+<p>You can choose to view figures at weekly or monthly data level.</p>
+<p>You can view figures broken down by:</p>
+<ol class="arabic simple">
+<li><p>Regions</p></li>
+<li><p>Sustainability and Transformation Partnerships (STP)</p></li>
+<li><p>Clinical Commissioning Groups (CCG)</p></li>
+<li><p>GP practice</p></li>
+</ol>
+<p>You can view figures for the use of the individual features of the NHS App at any of these levels,  including:</p>
+<ol class="arabic simple">
+<li><p>Registrations – and registrations by patients who have not previously used patient online access</p></li>
+<li><p>Appointment bookings and cancellations</p></li>
+<li><p>Record reviews</p></li>
+<li><p>Prescription requests</p></li>
+<li><p>Visits to NHS 111 online</p></li>
+<li><p>Organ donation registrations and withdrawals</p></li>
+<li><p>Users visiting the health A-Z</p></li>
+<li><p>Users visiting the national data opt-out site</p></li>
+</ol>
+<p>The data is updated weekly, every Wednesday at 7:30am.</p>
+</div>
+<div class="section" id="how-to-access-the-dashboard">
+<h3>How to access the dashboard<a class="headerlink" href="#how-to-access-the-dashboard" title="Permalink to this headline">¶</a></h3>
+<p>To access the dashboard, you need to log in to your OKTA account. This is the same account used for other NHS Improvement services on the NHS Improvement website. Log in and then click on ‘My account’, select ‘Your analytical products’ and select ‘NHS App dashboard’.</p>
+<p>Access the NHS App Dashboard: (<a class="reference external" href="https://tabanalytics.data.england.nhs.uk/#/views/NHSAppDashboard/Uptake">https://tabanalytics.data.england.nhs.uk/#/views/NHSAppDashboard/Uptake</a>)</p>
+</div>
+<div class="section" id="background-to-the-nhs-app-dashboard">
+<h3>Background to the NHS App dashboard<a class="headerlink" href="#background-to-the-nhs-app-dashboard" title="Permalink to this headline">¶</a></h3>
+<p>The NHS App dashboard is provided by NHSX, NHS Digital, and NHS England and Improvement. It enables those working in the health and care system to monitor the adoption and uptake of the NHS App. This information can then support strategic decision making at all levels of the system.</p>
+</div>
+</div>
+<div class="section" id="nhs-app-data-dictionary">
+<h2>NHS App Data Dictionary<a class="headerlink" href="#nhs-app-data-dictionary" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NHS App Registrations</p></td>
+<td><p>Number of App users who have obtained P9 verification (full access) in the specified reporting period</p></td>
+</tr>
+<tr class="row-odd"><td><p>% of GP patients aged 13+ yrs, registered for NHS App</p></td>
+<td><p>Proportion of GP registered population registered for the NHS App to date (cumulative)</p></td>
+</tr>
+<tr class="row-even"><td><p>NHS App downloads</p></td>
+<td><p>Number of NHS App downloads from Google and Apple Stores in the specified reporting period</p></td>
+</tr>
+<tr class="row-odd"><td><p>Total GP registered patients aged 13+ years</p></td>
+<td><p>Number of patients registered at a general practice to date (cumulative)</p></td>
+</tr>
+<tr class="row-even"><td><p>GP population registered for Patient Online</p></td>
+<td><p>Number of ‘online patients’ registered for at least one online service to date (cumulative)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Total GP List Size (from Patient Online)</p></td>
+<td><p>Number of patients registered at a general practice to date (cumulative)</p></td>
+</tr>
+<tr class="row-even"><td><p>% GP population registered for Patient Online</p></td>
+<td><p>Proportion of GP registered population registered for GP Online Services to date (cumulative)</p></td>
+</tr>
+<tr class="row-odd"><td><p>NHS App Logins</p></td>
+<td><p>Number of NHS App logins in the specified reporting period</p></td>
+</tr>
+<tr class="row-even"><td><p>Users Booking Appointments</p></td>
+<td><p>Number of App users booking GP appointments in the specified reporting period</p></td>
+</tr>
+<tr class="row-odd"><td><p>Appointment Cancellation</p></td>
+<td><p>Number of App users cancelling GP appointments in the specified reporting period</p></td>
+</tr>
+<tr class="row-even"><td><p>Users Requesting Prescriptions</p></td>
+<td><p>Number of App users requesting prescriptions in the specified reporting period</p></td>
+</tr>
+<tr class="row-odd"><td><p>User Accessing Medical Records</p></td>
+<td><p>Number of App users accessing their medical records in the specified reporting period</p></td>
+</tr>
+<tr class="row-even"><td><p>Users Visiting NHS 111 Online</p></td>
+<td><p>Number of App users visiting NHS 111 online from the NHS App in the specified reporting period</p></td>
+</tr>
+<tr class="row-odd"><td><p>Organ Donation Registrations</p></td>
+<td><p>Number of App users who have registered to be an organ donor in the specified reporting period</p></td>
+</tr>
+<tr class="row-even"><td><p>Organ Donation Updates</p></td>
+<td><p>Number of App users who have updated their Organ Donation Status in the specified reporting period</p></td>
+</tr>
+<tr class="row-odd"><td><p>Organ Donation Withdrawals</p></td>
+<td><p>Number of App users who have withdrawn their organ donor registrations in the specified reporting period</p></td>
+</tr>
+<tr class="row-even"><td><p>Users Visiting Health A-Z</p></td>
+<td><p>Number of App users visiting the Health A-Z page in the specified reporting period</p></td>
+</tr>
+<tr class="row-odd"><td><p>Users visiting National Data Opt-out</p></td>
+<td><p>Number of App users visiting the National Data opt-out page in the specified reporting period</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="change-log">
+<h2>Change log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="nhs-app-dashboard-v1-4">
+<h3>NHS App Dashboard v1.4<a class="headerlink" href="#nhs-app-dashboard-v1-4" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="data-caveats">
+<h3>Data Caveats<a class="headerlink" href="#data-caveats" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>GP Registered Patients data is not available for a small proportion of GP practices. Any metrics that use this measure as a denominator (e.g. Proportion of GP population registered for the NHS App) will have a slightly higher than expected rate.</p></li>
+<li><p>The dashboard displays data only for GP practices that are currently active. Should a practice close, their historical data will no longer appear in the dashboard.</p></li>
+</ol>
+<p>## Version 1.4 Change Log (29-11-2020)</p>
+</div>
+<div class="section" id="features-added">
+<h3>1. Features Added:<a class="headerlink" href="#features-added" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p><strong>National Summary and Local App Usage:</strong> Split national and local level data into separate sheets. Filters now work correctly on all graphs with no caveats</p></li>
+<li><p><strong>Data Table page:</strong> Allows users to easily filter data via Region, STP, CCG, CCG Code, Practice, Practice Code.</p></li>
+<li><p><strong>Data Dictionary page:</strong> Will help users understand the meaning, description, lowest level of data, calculation, limitations and data source(s) for the different metrics in the NHS App Analytics Dashboard</p></li>
+<li><p><strong>Information icons:</strong> Allow the user to understand the purpose behind each page</p></li>
+</ol>
+</div>
+<div class="section" id="user-interface-changes">
+<h3>2. User Interface Changes:<a class="headerlink" href="#user-interface-changes" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>UI fixes on National Summary Dashboard charts and titles to ensure accessibility, as well as adherence to NHSE&amp;I dashboard formatting guidance</p></li>
+<li><p>Clickable mailto link added to About page to allow users to email developers for support</p></li>
+<li><p>Minor UI fixes to the About page</p></li>
+<li><p>UI fixes on National Summary and App Usage pages</p></li>
+<li><p>Consistent colour scheme applied to all charts on dashboard to improve user experience</p></li>
+<li><p>Minor UI fixes on National Summary and App Usage page</p></li>
+<li><p>Header formatting changed for all pages to improve user experience</p></li>
+<li><p>Null Value(s) option deleted from filters</p></li>
+<li><p>Filters now correspond with all charts</p></li>
+</ol>
+</div>
+<div class="section" id="features-removed">
+<h3>3. Features Removed:<a class="headerlink" href="#features-removed" title="Permalink to this headline">¶</a></h3>
+<p>To ensure the dashboard only includes metrics that are supported by the NHS App, the following charts have been removed:
+#. Registrations by Non-Patient Online users running total
+#. % of registrations by Non-Patient Online Users based on running totals
+#. Active returning visitors</p>
+</div>
+<div class="section" id="version-1-3-change-log-29-09-2020">
+<h3>Version 1.3 Change Log (29-09-2020)<a class="headerlink" href="#version-1-3-change-log-29-09-2020" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="user-verification-process">
+<h3>1. User Verification Process:<a class="headerlink" href="#user-verification-process" title="Permalink to this headline">¶</a></h3>
+<p>To improve the App’s user registration journey and increase digital uptake, a 2-tier verification process has been implemented for new App users. The two tiers are as follows:
+#. Partially Verified (P5) users - Requiring Name, Email, D.O.B, Postcode and Mobile Number
+#. Fully Verified (P9) users - Requiring Photo ID and Photo/Video Identity Matching
+Partially verified (P5) users cannot access confidential information, and have limited access to App features until fully (P9) verified.</p>
+</div>
+<div class="section" id="updated-registration-metric">
+<h3>2. Updated Registration Metric:<a class="headerlink" href="#updated-registration-metric" title="Permalink to this headline">¶</a></h3>
+<p>The ‘NHS App Registrations’ metric has been updated to give a count of new App users who have obtained full (P9) verification. The dashboard has now been updated to account for this change and will resume weekly updates.</p>
+<p>As a result of the new verification process and developments to the App over time, a new method for tracking user acquisition has been established. Previously, patients moving practice may have been assigned a new Linkage Key, and would therefore have been counted as a new app user. Data prior to May-2020 has been updated to reflect the new tracking method made possible by the new verification system, which avoids the risk of duplication. This may result in a slightly lower registrations count at practice level prior to May-2020.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="readme.html" class="btn btn-neutral float-right" title="Azure Platform Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="NHSX Data Engineering Docs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 NHS England and NHS Improvement, MIT Licence.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

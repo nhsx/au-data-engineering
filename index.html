@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>NHSX Data Engineering Docs &mdash; NHSX Data Engineering 0.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme_overrides.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NHS App Analytics Dashboard" href="nhsappanalytics.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+          
+
+          
+            <a href="#" class="icon icon-home"> NHSX Data Engineering
+          
+
+          
+            
+            <img src="_static/logo-wordmark-light.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Core Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nhsappanalytics.html">NHS App Analytics Dashboard</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Data Engineering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Azure Platform Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfpipelines.html">Azure Data Factory Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adfutilities.html">Azure Data Factory Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="databricksfunc.html">Azure Databricks Functions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Open Analytics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="openanalyticstemplate.html">Open Analytics Template</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">NHSX Data Engineering</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>NHSX Data Engineering Docs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nhsx-data-engineering-docs">
+<h1>NHSX Data Engineering Docs<a class="headerlink" href="#nhsx-data-engineering-docs" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Core Products</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nhsappanalytics.html">NHS App Analytics Dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nhsappanalytics.html#nhs-app">NHS App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nhsappanalytics.html#id1">NHS-App-Analytics-Dashboard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#information-you-can-get-through-the-dashboard">Information you can get through the dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#how-to-access-the-dashboard">How to access the dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#background-to-the-nhs-app-dashboard">Background to the NHS App dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nhsappanalytics.html#nhs-app-data-dictionary">NHS App Data Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nhsappanalytics.html#change-log">Change log</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#nhs-app-dashboard-v1-4">NHS App Dashboard v1.4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#data-caveats">Data Caveats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#features-added">1. Features Added:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#user-interface-changes">2. User Interface Changes:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#features-removed">3. Features Removed:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#version-1-3-change-log-29-09-2020">Version 1.3 Change Log (29-09-2020)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#user-verification-process">1. User Verification Process:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nhsappanalytics.html#updated-registration-metric">2. Updated Registration Metric:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Data Engineering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">Azure Platform Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme.html#data-engineering-repositories">Data Engineering Repositories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#our-core-repositories">Our Core Repositories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html#our-product-repositories">Our Product Repositories</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adfpipelines.html">Azure Data Factory Templates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#sql-database-ingestion-pipeline">SQL Database Ingestion Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#metadata">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#pipeline-configuration">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#data-factory-configuration">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#databricks-ingestion-pipeline">Databricks Ingestion Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id1">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id2">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id3">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id4">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#excel-sheet-ingestion-pipeline">Excel Sheet Ingestion Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id5">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id6">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id7">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id8">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#multiple-excel-sheet-ingestion-pipeline">Multiple Excel Sheet Ingestion Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id9">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id10">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id11">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id12">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#web-url-data-ingestion-pipeline">Web URL Data Ingestion Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id13">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id14">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id15">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id16">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#azure-function-app-ingestion-pipeline">Azure Function App Ingestion Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id17">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id18">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id19">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id20">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#sharepoint-ingestion-pipeline">SharePoint Ingestion Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id21">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id22">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id23">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id24">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#databricks-processing-pipeline">Databricks Processing Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id25">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id26">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id27">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#databricks-orchestration">Databricks Orchestration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id28">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#azure-function-app-processing-pipeline">Azure Function App Processing Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id29">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id30">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id31">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id32">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#multiple-azure-function-apps-processing-pipeline">Multiple Azure Function Apps Processing Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id33">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id34">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id35">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id36">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#copy-file-processing-pipeline">Copy File Processing Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id37">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id38">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id39">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id40">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#sql-table-staging-pipeline">SQL Table Staging Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id41">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id42">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id43">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id44">Data Factory Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="adfpipelines.html#multiple-sql-table-staging-pipeline">Multiple SQL Table Staging Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id45">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id46">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id47">Pipeline Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfpipelines.html#id48">Data Factory Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adfutilities.html">Azure Data Factory Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adfutilities.html#latest-folder-lookup">Latest Folder Lookup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="adfutilities.html#metadata">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfutilities.html#problem">Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfutilities.html#pipeline-setup">Pipeline setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfutilities.html#loop-setup">Loop setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfutilities.html#conditional-setup">Conditional setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfutilities.html#copy-data-setup">Copy Data setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="adfutilities.html#data-factory-configuration">Data Factory Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="databricksfunc.html">Azure Databricks Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="databricksfunc.html#datalake-to-pandas">DataLake to Pandas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="databricksfunc.html#metadata">Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="databricksfunc.html#imports">Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="databricksfunc.html#download">Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="databricksfunc.html#upload">Upload</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Open Analytics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="openanalyticstemplate.html">Open Analytics Template</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="openanalyticstemplate.html#github-api">GitHub API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openanalyticstemplate.html#plotly">Plotly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openanalyticstemplate.html#github-actions">Github Actions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="openanalyticstemplate.html#events-that-trigger-workflows">Events that trigger workflows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openanalyticstemplate.html#jobs">Jobs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openanalyticstemplate.html#steps">Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="openanalyticstemplate.html#github-pages">GitHub Pages</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-0-2">v0.0.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#new-features">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#fixes">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v0-0-1">v0.0.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id1">New Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id2">Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#other-changes">Other Changes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="nhsappanalytics.html" class="btn btn-neutral float-right" title="NHS App Analytics Dashboard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021 NHS England and NHS Improvement, MIT Licence.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
