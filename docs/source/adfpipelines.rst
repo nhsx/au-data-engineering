@@ -523,7 +523,7 @@ Metadata
     # -------------------------------------------------------------------------
     # Copyright (c) 2021 NHS England and NHS Improvement. All rights reserved.
     # Licensed under the MIT License. See license.txt in the project root for
-    # license information.
+    # license information. 
     # -------------------------------------------------------------------------
 
     """
